@@ -11,23 +11,25 @@ public class AttackData_SO : ScriptableObject
     public float skillRange;
     //CD
     public float coolDown;
-    //最小攻击
-    public int minDamage;
-    //最大攻击
-    public int maxDamage;
-    //爆伤
-    public float criticalMultiplier;
-    //暴击率
-    public float criticalChance;
+    //攻击力
+    public int damage;
+    // //最小攻击
+    // public int minDamage;
+    // //最大攻击
+    // public int maxDamage;
+    // //爆伤
+    // public float criticalMultiplier;
+    // //暴击率
+    // public float criticalChance;
 
-    public void ApplyWeaponData(AttackData_SO weapon)
-    {
-        attackRange = weapon.attackRange;
-        skillRange = weapon.skillRange;
-        coolDown = weapon.coolDown;
-        minDamage = weapon.minDamage;
-        maxDamage = weapon.maxDamage;
-        criticalMultiplier = weapon.criticalMultiplier;
-        criticalChance = weapon.criticalChance;
-    }
+    // public void ApplyWeaponData(AttackData_SO weapon)
+    // {
+    //     attackRange = weapon.attackRange;
+    //     skillRange = weapon.skillRange;
+    //     coolDown = weapon.coolDown;
+    //     minDamage = weapon.minDamage;
+    //     maxDamage = weapon.maxDamage;
+    //     criticalMultiplier = weapon.criticalMultiplier;
+    //     criticalChance = weapon.criticalChance;
+    // }
 }

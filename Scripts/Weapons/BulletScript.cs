@@ -40,6 +40,17 @@ public class BulletScript : MonoBehaviour {
 			Destroy (gameObject);
 		}
 
+		if (collision.gameObject.tag == "Enemy") 
+		{
+			//Instantiate random impact prefab from array
+			Instantiate (bloodImpactPrefabs [Random.Range 
+				(0, bloodImpactPrefabs.Length)], transform.position, 
+				Quaternion.LookRotation (collision.contacts [0].normal)).parent=collision.transform.GetChild(0);
+			var targetStats = collision.transform.gameObject.GetComponent<CharacterStats>();
+            targetStats.TakeDamage(1, targetStats);
+			Destroy(gameObject);
+		}
+
 		//Ignore collision if bullet collides with "Player" tag
 		if (collision.gameObject.tag == "Player") 
 		{

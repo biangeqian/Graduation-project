@@ -103,7 +103,7 @@ public class EnemyController : MonoBehaviour
         anim.SetBool("Walk", isWalk);
         anim.SetBool("Chase", isChase);
         anim.SetBool("Follow", isFollow);
-        anim.SetBool("Critical", characterStats.isCritical);
+        //anim.SetBool("Critical", characterStats.isCritical);
         anim.SetBool("Death", isDead);
     }
     void SwitchStates()
@@ -196,7 +196,7 @@ public class EnemyController : MonoBehaviour
                         {
                             lastAttackTime = characterStats.attackData.coolDown;
                             //判断暴击
-                            characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
+                            //characterStats.isCritical = UnityEngine.Random.value < characterStats.attackData.criticalChance;
                             //执行攻击                            
                             Attack();
                         }
@@ -211,7 +211,9 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyStates.DEAD:
                 coll.enabled = false;
+                //停止移动
                 //agent.enabled = false;//会导致空引用
+                agent.isStopped = true;
                 agent.radius = 0;
                 //死亡后延迟两秒销毁
                 Destroy(gameObject, 2f);
