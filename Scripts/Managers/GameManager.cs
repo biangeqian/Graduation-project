@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(this);
     }
     public string sceneName="Menu";
-
+    public GameObject HitFeedbackUI;
 
     
 }

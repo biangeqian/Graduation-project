@@ -48,6 +48,15 @@ public class BulletScript : MonoBehaviour {
 				Quaternion.LookRotation (collision.contacts [0].normal)).parent=collision.transform.GetChild(0);
 			var targetStats = collision.transform.gameObject.GetComponent<CharacterStats>();
             targetStats.TakeDamage(1, targetStats);
+			//显示击中反馈
+			if(GameManager.Instance.HitFeedbackUI.activeSelf==false)
+			{
+				GameManager.Instance.HitFeedbackUI.SetActive(true);
+			}
+			else
+			{
+				GameManager.Instance.HitFeedbackUI.GetComponent<HitFeedback>().addTime();
+			}
 			Destroy(gameObject);
 		}
 

@@ -5,20 +5,23 @@ using UnityEngine;
 public class HitFeedback : MonoBehaviour
 {
     public float delayTime=0.2f;
-    private float time=0f;
+    public float time=0f;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        GameManager.Instance.HitFeedbackUI=this.gameObject;
     }
-
+    private void OnEnable() 
+    {
+        time=delayTime;
+    }
     // Update is called once per frame
     void Update()
     {
         if(time<=0)
         {
             time=0;
-            this.enabled=false;
+            this.gameObject.SetActive(false);
         }
         else
         {
