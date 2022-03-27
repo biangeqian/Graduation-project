@@ -12,6 +12,6 @@ public class GameManager : Singleton<GameManager>
     }
     public string sceneName="Menu";
     public GameObject HitFeedbackUI;
-
+    public GameObject Player;
     
 }

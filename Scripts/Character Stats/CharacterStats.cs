@@ -15,6 +15,7 @@ public class CharacterStats : MonoBehaviour
     //private RuntimeAnimatorController baseAnimator;
     //[HideInInspector]
     //public bool isCritical;//被暴击
+    public bool isPlayer;
 
     void Awake()
     {
@@ -54,6 +55,10 @@ public class CharacterStats : MonoBehaviour
     {
         int damage = Mathf.Max(attacker.CurrentDamage() - defender.CurrentDefence,0);
         defender.CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
+        if(!isPlayer)
+        {
+            gameObject.GetComponent<EnemyController>().setTarget();
+        }
         //暴击时触发挨打的人的受击动画
         // if (attacker.isCritical)
         // {
@@ -73,6 +78,10 @@ public class CharacterStats : MonoBehaviour
     {
         int currentDamage = Mathf.Max(damage - defender.CurrentDefence, 0);
         defender.CurrentHealth = Mathf.Max(CurrentHealth - currentDamage, 0);
+        if(!isPlayer)
+        {
+            gameObject.GetComponent<EnemyController>().setTarget();
+        }
         // UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
         // if (defender.CurrentHealth <= 0)
         // {

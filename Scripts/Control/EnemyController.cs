@@ -21,9 +21,14 @@ public class EnemyController : MonoBehaviour
     private float speed;//记录原有速度
     public GameObject attackTarget;//攻击目标
     public float lookAtTime;//停留时间
+    [Header("Fire")]
+    public GameObject firePrefeb;
+    public GameObject firePoint;
+    
     private float remainLookAtTime;
     private float lastAttackTime;//攻击CD
     private Quaternion guardRotation;//原有站桩角度
+    private bool beAttacked;
 
     [Header("Patrol State")]
     public float patrolRange;//巡逻范围
@@ -237,6 +242,7 @@ public class EnemyController : MonoBehaviour
 
     bool FoundPlayer()
     {
+        if(beAttacked) return true;
         var colliders = Physics.OverlapSphere(transform.position,sightRadius);
         foreach (var target in colliders)
         {
@@ -249,6 +255,12 @@ public class EnemyController : MonoBehaviour
         attackTarget = null;
         return false;
     }
+    public void setTarget()
+    {
+        beAttacked=true;
+        attackTarget=GameManager.Instance.Player;
+    }
+
     bool TargetInAttackRange()
     {
         if (attackTarget != null)
@@ -289,6 +301,7 @@ public class EnemyController : MonoBehaviour
     }
 
     //Animation Event
+    //近战
     void Hit()
     {
         if (attackTarget != null&&transform.IsFacingTarget(attackTarget.transform))
@@ -301,6 +314,22 @@ public class EnemyController : MonoBehaviour
             } 
         }
         
+    }
+    //远程
+    void Fire()
+    {
+        if(attackTarget)
+        {
+            RotateToTargetDirection (firePoint, attackTarget.transform.position);
+            firePrefeb.transform.LookAt(attackTarget.transform);
+        }
+        Instantiate(firePrefeb, firePoint.transform.position, firePoint.transform.rotation);
+    }
+    void RotateToTargetDirection (GameObject obj, Vector3 destination)
+    {
+        Vector3 direction = destination - obj.transform.position;
+        Quaternion targetAngels = Quaternion.Euler(-Vector3.Angle(direction,transform.forward), 0, 0);
+        obj.transform.localRotation=targetAngels;
     }
 
     public void EndNotify()

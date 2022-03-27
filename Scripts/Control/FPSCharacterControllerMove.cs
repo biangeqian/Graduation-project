@@ -33,6 +33,8 @@ public class FPSCharacterControllerMove : MonoBehaviour
 
     private void Start() 
     {
+        GameManager.Instance.Player=gameObject;
+
         //隐藏鼠标
         Cursor.lockState = CursorLockMode.Locked;
 
