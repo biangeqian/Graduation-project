@@ -16,9 +16,7 @@ public class ItemUI : MonoBehaviour
    
     private void Awake() 
     {
-        image=transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        upText=transform.GetChild(0).GetChild(1).GetComponent<Text>();
-        bottomText=transform.GetChild(0).GetChild(2).GetComponent<Text>();
+        RefreshImageAndText();
     }
     public void RefreshImageAndText()
     {

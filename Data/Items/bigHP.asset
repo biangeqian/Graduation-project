@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f461be2759644514ca1eac952f6f3276, type: 3}
+  m_Name: bigHP
+  m_EditorClassIdentifier: 
+  itemName: bigHP
+  descriptionName: "Grizzy\u6025\u6551\u5305"
+  descriptionTooltip: "\u76EE\u524D\u5360\u7528\u9762\u79EF\u6700\u5927\u7684\u533B\u7597\u5305\uFF0CHP\u56DE\u590D\u91CF\u6781\u5927\uFF0C\u800C\u4E14\u9664\u4E86\u6709\u79FB\u9664\u5931\u8840\u72B6\u6001\u5916\uFF0C\u8FD8\u81EA\u5E26\u79FB\u9664\u9AA8\u6298\u72B6\u6001"
+  itemtype: 3
+  isStackable: 0
+  isRotatable: 0
+  maxStackSize: 0
+  maxValue: 20000
+  maxUse: 1800
+  weightOfOne: 1
+  image: {fileID: 21300000, guid: 1db4297d85976f540af9524c65d54221, type: 3}
+  boxSize: 4

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f461be2759644514ca1eac952f6f3276, type: 3}
+  m_Name: AK47
+  m_EditorClassIdentifier: 
+  itemName: ak47
+  descriptionName: AK47
+  descriptionTooltip: "\u7ECF\u5178\u7684\u6B65\u67AA~"
+  itemtype: 5
+  isStackable: 0
+  isRotatable: 0
+  maxStackSize: 0
+  maxValue: 30000
+  maxUse: -1
+  weightOfOne: 4
+  image: {fileID: 21300000, guid: 31710f48c70ffc04eb1c70de1294edca, type: 3}
+  boxSize: 10

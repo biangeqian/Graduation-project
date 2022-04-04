@@ -22,7 +22,7 @@ public class Item
         {
             this.currentStack=1;
         }
-        this.currentUse=useTimes;
+        this.currentUseTimes=useTimes;
         //有耐久的不可堆叠
         this.currentValue=(int)Mathf.Ceil(((float)useTimes/data_SO.maxUse)*data_SO.maxValue);
         this.currentWeight=this.currentStack*data_SO.weightOfOne;
@@ -32,8 +32,8 @@ public class Item
     public ItemData_SO itemData;
     public int currentStack;
     public int currentValue;
-    public int currentUse;
+    public int currentUseTimes;
     public float currentWeight;
-    public int imageboxIndex;
-    public int rotateState;
+    //public int imageboxIndex;
+    //public int rotateState;
 }
