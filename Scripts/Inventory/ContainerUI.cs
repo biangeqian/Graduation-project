@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class ContainerUI : MonoBehaviour
 {
     public ItemUI[] itemUIs;
-    private int rowNumber=10;
+    public int rowNumber=10;
+    public int totalNumber=260;
     public ItemData_SO testData;//for test
     public void RefreshUI()
     {
@@ -30,9 +31,12 @@ public class ContainerUI : MonoBehaviour
                     InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
                     //UI
                     itemUIs[i].indexOfDataInBox=i;
+
+                    itemUIs[i].image.rectTransform.sizeDelta = new Vector2(64, 64);
                     itemUIs[i].image.sprite=itemData.image;
                     itemUIs[i].image.color=new Color(255,255,255,1);
                     itemUIs[i].upText.text=itemData.descriptionName;
+                    
                     if(number>1)
                     {
                         itemUIs[i].bottomText.text=number.ToString();
@@ -46,7 +50,7 @@ public class ContainerUI : MonoBehaviour
         {
             for(int i=0;i<itemUIs.Length;i++)
             {
-                if(i/10==(i+4)/10)
+                if(i/rowNumber==(i+4)/rowNumber)
                 {
                     if(check(i)&&check(i+1)&&check(i+2)&&check(i+3)&&check(i+4)
                     &&check(i+10)&&check(i+11)&&check(i+12)&&check(i+13)&&check(i+14))
@@ -75,10 +79,60 @@ public class ContainerUI : MonoBehaviour
                 }
             }
         }
+        else if(itemData.boxSize==4)
+        {
+            for(int i=0;i<itemUIs.Length;i++)
+            {
+                if(i/rowNumber==(i+1)/rowNumber)
+                {
+                    if(check(i)&&check(i+1)&&check(i+10)&&check(i+11))
+                    {
+                        UnityEngine.Debug.Log("在第"+i+"格添加4格物品");
+                        //Data
+                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
+                        //UI
+                        itemUIs[i].indexOfDataInBox=i;
+                        itemUIs[i+1].indexOfDataInBox=i;
+                        itemUIs[i+10].indexOfDataInBox=i;
+                        itemUIs[i+11].indexOfDataInBox=i;
+                        
+                        itemUIs[i].image.rectTransform.sizeDelta = new Vector2(128, 128);
+                        itemUIs[i].image.sprite=itemData.image;
+                        itemUIs[i].image.color=new Color(255,255,255,1);
+                        itemUIs[i].upText.text="";
+                        break;
+                    }
+                }
+            }
+        }
+        else if(itemData.boxSize==2)
+        {
+            for(int i=0;i<itemUIs.Length;i++)
+            {
+                if(i/rowNumber==(i+1)/rowNumber)
+                {
+                    if(check(i)&&check(i+1))
+                    {
+                        UnityEngine.Debug.Log("在第"+i+"格添加2格物品");
+                        //Data
+                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
+                        //UI
+                        itemUIs[i].indexOfDataInBox=i;
+                        itemUIs[i+1].indexOfDataInBox=i;
+
+                        itemUIs[i].image.rectTransform.sizeDelta = new Vector2(128, 64);
+                        itemUIs[i].image.sprite=itemData.image;
+                        itemUIs[i].image.color=new Color(255,255,255,1);
+                        itemUIs[i].upText.text="";
+                        break;
+                    }
+                }
+            }
+        }
     }
     private bool check(int index)
     {
-        if(index>=0&&index<260)
+        if(index>=0&&index<totalNumber)
         {
             if(itemUIs[index].indexOfDataInBox==-1)
             {
@@ -97,12 +151,6 @@ public class ContainerUI : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.K))
         {
             AddItem(testData,1,-1);
-
         }
-        // else if(Input.GetKeyDown(KeyCode.L))
-        // {
-        //     AddItem(new Item(testData,1,-1));
-
-        // }
     }
 }

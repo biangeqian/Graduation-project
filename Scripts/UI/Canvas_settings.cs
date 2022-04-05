@@ -41,8 +41,7 @@ public class Canvas_settings : MonoBehaviour
     }
     void goMenu()
     {
-        gameObject.SetActive(false);
-        GameManager.Instance.CanvasStack.Clear();
+        GameManager.Instance.cleanStack();
         SceneManager.LoadSceneAsync("Menu");
     }
     void quit() 

@@ -37,7 +37,7 @@ public class Canvas_maps : MonoBehaviour
     }
     IEnumerator LoadMaps()
     {
-        GameManager.Instance.CanvasStack.Clear();
+        GameManager.Instance.cleanStack();
         yield return SceneManager.LoadSceneAsync("Plane_Demo_Scene");
     }
 }

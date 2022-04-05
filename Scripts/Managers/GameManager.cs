@@ -55,5 +55,12 @@ public class GameManager : Singleton<GameManager>
             
         }
     }
-    
+    public void cleanStack()
+    {
+        while(CanvasStack.Count>0)
+        {
+            GameObject canvas=CanvasStack.Pop();
+            canvas.SetActive(false);
+        }
+    }
 }

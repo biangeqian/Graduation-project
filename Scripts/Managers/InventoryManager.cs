@@ -14,15 +14,15 @@ public class InventoryManager : Singleton<InventoryManager>
     [Header("Inventory Data")]
     public InventoryData_SO warehouseOrig;
     public InventoryData_SO warehousePlayer;
-    public InventoryData_SO actionOrig;
-    public InventoryData_SO actionPlayer;
-    public InventoryData_SO equipmentOrig;
-    public InventoryData_SO equipmentPlayer;
+    public InventoryData_SO bagOrig;
+    public InventoryData_SO bagPlayer;
+    public InventoryData_SO safeBagOrig;
+    public InventoryData_SO safeBagPlayer;
 
     [Header("Container UI")]
     public ContainerUI warehouseContainer;
-    public ContainerUI actionContainer;
-    public ContainerUI equipmentContainer;
+    public ContainerUI bagContainer;
+    public ContainerUI safeBagContainer;
 
     [Header("Drag")]
     public GameObject dragArea;

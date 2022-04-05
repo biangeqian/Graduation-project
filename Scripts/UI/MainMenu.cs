@@ -40,6 +40,7 @@ public class MainMenu : MonoBehaviour
         UnityEngine.Debug.Log("开始游戏");
         canvas_maps.SetActive(true);
         gameObject.SetActive(false);
+        GameManager.Instance.cleanStack();
         GameManager.Instance.CanvasStack.Push(canvas_maps);
     }
     void GoHouse()
@@ -53,14 +54,17 @@ public class MainMenu : MonoBehaviour
     void GoShooting()
     {
         UnityEngine.Debug.Log("打开靶场");
-        GameManager.Instance.CanvasStack.Clear();
+        GameManager.Instance.cleanStack();
         SceneManager.LoadSceneAsync("Assault_Rifle_01_Demo");
     }
     void GoSetting()
     {
-        UnityEngine.Debug.Log("打开设置");
-        canvas_settings.SetActive(true);
-        GameManager.Instance.CanvasStack.Push(canvas_settings);
+        if(canvas_settings.activeSelf==false)
+        {
+            UnityEngine.Debug.Log("打开设置");
+            canvas_settings.SetActive(true);
+            GameManager.Instance.CanvasStack.Push(canvas_settings);
+        }
     }
     void Quit()
     {
