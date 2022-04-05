@@ -10,6 +10,8 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     private int size;
     private int indexD;
     private Transform dragItem;
+    public int rowNumber=10;
+    public int totalNumber=260;
     public void OnBeginDrag(PointerEventData eventData)
     {
         //拖拽的格子有物体
@@ -38,6 +40,18 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
                 InventoryManager.Instance.warehouseContainer.itemUIs[indexD+12].indexOfDataInBox=-1;
                 InventoryManager.Instance.warehouseContainer.itemUIs[indexD+13].indexOfDataInBox=-1;
                 InventoryManager.Instance.warehouseContainer.itemUIs[indexD+14].indexOfDataInBox=-1;
+            }
+            else if(size==4)
+            {
+                InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=-1;
+                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=-1; 
+                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+10].indexOfDataInBox=-1;
+                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+11].indexOfDataInBox=-1;
+            }
+            else if(size==2)
+            {
+                InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=-1;
+                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=-1; 
             }
 
             InventoryManager.Instance.dragOrigParent=(RectTransform)dragItem.parent;
@@ -79,10 +93,32 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
                     }
                     else if(size==10)
                     {
-                        if(targetItemUI.Index/10==(targetItemUI.Index+4)/10)
+                        if(targetItemUI.Index/rowNumber==(targetItemUI.Index+4)/rowNumber)
                         {
                             if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+2)&&check(targetItemUI.Index+3)&&check(targetItemUI.Index+4)
                             &&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11)&&check(targetItemUI.Index+12)&&check(targetItemUI.Index+13)&&check(targetItemUI.Index+14))
+                            {
+                                SwapWithTarget(targetItemUI.Index);
+                                return;
+                            }
+                        }
+                    }
+                    else if(size==4)
+                    {
+                        if(targetItemUI.Index/rowNumber==(targetItemUI.Index+1)/rowNumber)
+                        {
+                            if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11))
+                            {
+                                SwapWithTarget(targetItemUI.Index);
+                                return;
+                            }
+                        }
+                    }
+                    else if(size==2)
+                    {
+                        if(targetItemUI.Index/rowNumber==(targetItemUI.Index+1)/rowNumber)
+                        {
+                            if(check(targetItemUI.Index)&&check(targetItemUI.Index+1))
                             {
                                 SwapWithTarget(targetItemUI.Index);
                                 return;
@@ -96,7 +132,7 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     }
     private bool check(int index)
     {
-        if(index>=0&&index<260)
+        if(index>=0&&index<totalNumber)
         {
             if(InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox==-1)
             {
@@ -125,6 +161,18 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
             InventoryManager.Instance.warehouseContainer.itemUIs[indexD+12].indexOfDataInBox=indexD;
             InventoryManager.Instance.warehouseContainer.itemUIs[indexD+13].indexOfDataInBox=indexD;
             InventoryManager.Instance.warehouseContainer.itemUIs[indexD+14].indexOfDataInBox=indexD;
+        }
+        else if(size==4)
+        {
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=indexD;
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+10].indexOfDataInBox=indexD;
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+11].indexOfDataInBox=indexD;
+        }
+        else if(size==2)
+        {
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=indexD;
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
         }
     }
     private Item GetItemData(int index)
@@ -170,6 +218,42 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
             InventoryManager.Instance.warehouseContainer.itemUIs[index+12].indexOfDataInBox=index;
             InventoryManager.Instance.warehouseContainer.itemUIs[index+13].indexOfDataInBox=index;
             InventoryManager.Instance.warehouseContainer.itemUIs[index+14].indexOfDataInBox=index;
+            //刷新子物体
+            InventoryManager.Instance.warehouseContainer.itemUIs[index].RefreshImageAndText();
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].RefreshImageAndText();
+        }
+        else if(size==4)
+        {
+            //Data
+            //交换目标格子在数据列表中的item数据
+            InventoryManager.Instance.warehousePlayer.list[index]=GetItemData(indexD);
+            InventoryManager.Instance.warehousePlayer.list[indexD]=null;
+            //UI交换位置
+            InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
+            dragItem.SetParent(InventoryManager.Instance.warehouseContainer.itemUIs[index].transform,false);
+            dragItem.position=InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.position;
+            //记录数据存放位置
+            InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox=index;
+            InventoryManager.Instance.warehouseContainer.itemUIs[index+1].indexOfDataInBox=index; 
+            InventoryManager.Instance.warehouseContainer.itemUIs[index+10].indexOfDataInBox=index;
+            InventoryManager.Instance.warehouseContainer.itemUIs[index+11].indexOfDataInBox=index;
+            //刷新子物体
+            InventoryManager.Instance.warehouseContainer.itemUIs[index].RefreshImageAndText();
+            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].RefreshImageAndText();
+        }
+        else if(size==2)
+        {
+            //Data
+            //交换目标格子在数据列表中的item数据
+            InventoryManager.Instance.warehousePlayer.list[index]=GetItemData(indexD);
+            InventoryManager.Instance.warehousePlayer.list[indexD]=null;
+            //UI交换位置
+            InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
+            dragItem.SetParent(InventoryManager.Instance.warehouseContainer.itemUIs[index].transform,false);
+            dragItem.position=InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.position;
+            //记录数据存放位置
+            InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox=index;
+            InventoryManager.Instance.warehouseContainer.itemUIs[index+1].indexOfDataInBox=index; 
             //刷新子物体
             InventoryManager.Instance.warehouseContainer.itemUIs[index].RefreshImageAndText();
             InventoryManager.Instance.warehouseContainer.itemUIs[indexD].RefreshImageAndText();
