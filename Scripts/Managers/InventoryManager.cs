@@ -26,7 +26,6 @@ public class InventoryManager : Singleton<InventoryManager>
 
     [Header("Drag")]
     public GameObject dragArea;
-    public ItemUI dragOrigItemUI;
     public RectTransform dragOrigParent;
     // Start is called before the first frame update
     void Start()

@@ -79,6 +79,15 @@ public class BulletScript : MonoBehaviour {
 			Instantiate (bloodImpactPrefabs [Random.Range 
 				(0, bloodImpactPrefabs.Length)], transform.position, 
 				Quaternion.LookRotation (collision.contacts [0].normal));
+			//显示击中反馈
+			if(GameManager.Instance.HitFeedbackUI.activeSelf==false)
+			{
+				GameManager.Instance.HitFeedbackUI.SetActive(true);
+			}
+			else
+			{
+				GameManager.Instance.HitFeedbackUI.GetComponent<HitFeedback>().addTime();
+			}
 			//Destroy bullet object
 			Destroy(gameObject);
 		}
@@ -122,6 +131,15 @@ public class BulletScript : MonoBehaviour {
 			//Toggle "isHit" on target object
 			collision.transform.gameObject.GetComponent
 				<TargetScript>().isHit = true;
+			//显示击中反馈
+			if(GameManager.Instance.HitFeedbackUI.activeSelf==false)
+			{
+				GameManager.Instance.HitFeedbackUI.SetActive(true);
+			}
+			else
+			{
+				GameManager.Instance.HitFeedbackUI.GetComponent<HitFeedback>().addTime();
+			}
 			//Destroy bullet object
 			Destroy(gameObject);
 		}
@@ -132,6 +150,15 @@ public class BulletScript : MonoBehaviour {
 			//Toggle "explode" on explosive barrel object
 			collision.transform.gameObject.GetComponent
 				<ExplosiveBarrelScript>().explode = true;
+			//显示击中反馈
+			if(GameManager.Instance.HitFeedbackUI.activeSelf==false)
+			{
+				GameManager.Instance.HitFeedbackUI.SetActive(true);
+			}
+			else
+			{
+				GameManager.Instance.HitFeedbackUI.GetComponent<HitFeedback>().addTime();
+			}
 			//Destroy bullet object
 			Destroy(gameObject);
 		}
@@ -142,6 +169,15 @@ public class BulletScript : MonoBehaviour {
 			//Toggle "isHit" on gas tank object
 			collision.transform.gameObject.GetComponent
 				<GasTankScript> ().isHit = true;
+			//显示击中反馈
+			if(GameManager.Instance.HitFeedbackUI.activeSelf==false)
+			{
+				GameManager.Instance.HitFeedbackUI.SetActive(true);
+			}
+			else
+			{
+				GameManager.Instance.HitFeedbackUI.GetComponent<HitFeedback>().addTime();
+			}
 			//Destroy bullet object
 			Destroy(gameObject);
 		}

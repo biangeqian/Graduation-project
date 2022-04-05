@@ -7,7 +7,7 @@ public class HitFeedback : MonoBehaviour
     public float delayTime=0.2f;
     public float time=0f;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         GameManager.Instance.HitFeedbackUI=this.gameObject;
     }

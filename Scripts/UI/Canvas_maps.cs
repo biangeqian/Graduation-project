@@ -25,8 +25,8 @@ public class Canvas_maps : MonoBehaviour
     }
     void GoMainMenu()
     {
-        canvas_menu.SetActive(true);
-        gameObject.SetActive(false);
+        GameObject curMenu=GameManager.Instance.CanvasStack.Pop();
+        curMenu.SetActive(false);
     }
     private void Update() 
     {
@@ -37,6 +37,7 @@ public class Canvas_maps : MonoBehaviour
     }
     IEnumerator LoadMaps()
     {
+        GameManager.Instance.CanvasStack.Clear();
         yield return SceneManager.LoadSceneAsync("Plane_Demo_Scene");
     }
 }

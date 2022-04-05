@@ -48,8 +48,16 @@ public class FPSCharacterControllerMove : MonoBehaviour
         //isGrounded只记录最后一次调用Move后的位置
         if(characterController.isGrounded)
         {
-            horizontal=Input.GetAxis("Horizontal");
-            vertical=Input.GetAxis("Vertical");
+            if(GameManager.Instance.CanvasStack.Count>0)
+            {
+                horizontal=0;
+                vertical=0;
+            }
+            else
+            {
+                horizontal=Input.GetAxis("Horizontal");
+                vertical=Input.GetAxis("Vertical");
+            }
             if(vertical!=0)
             {
                 horizontal*=0.4f;
@@ -63,7 +71,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
             //转全局坐标
             moveDirection=characterTransform.TransformDirection(moveDirection);
 
-            if(Input.GetButtonDown("Jump"))
+            if(Input.GetKeyDown(KeyCode.Space)&&GameManager.Instance.CanvasStack.Count==0)
             {
                 if(isCrouched)
                 {
@@ -75,13 +83,13 @@ public class FPSCharacterControllerMove : MonoBehaviour
                     moveDirection.y=JumpHeight;
                 }
             }
-            if(Input.GetKeyDown(KeyCode.C))
+            if(Input.GetKeyDown(KeyCode.C)&&GameManager.Instance.CanvasStack.Count==0)
             {
                 var targetHeight=isCrouched?originHeight:CrouchHeight;
                 if(!CrouchBlock) StartCoroutine(DoCrouch(targetHeight));
                 isCrouched=!isCrouched; 
             }
-            if(Input.GetKeyDown(KeyCode.LeftShift)&&isCrouched)
+            if(Input.GetKeyDown(KeyCode.LeftShift)&&isCrouched&&GameManager.Instance.CanvasStack.Count==0)
             {
                 if(!CrouchBlock) StartCoroutine(DoCrouch(originHeight));
                 isCrouched=!isCrouched;

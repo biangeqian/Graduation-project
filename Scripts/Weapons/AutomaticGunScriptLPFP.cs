@@ -413,7 +413,10 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	}
 
 	private void LateUpdate () {
-		
+		if(GameManager.Instance.CanvasStack.Count>0)
+		{
+			return;
+		}
 		//Weapon sway
 		if (weaponSway == true) 
 		{
@@ -435,6 +438,10 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	
 	private void Update () {
 
+		if(GameManager.Instance.CanvasStack.Count>0)
+		{
+			return;
+		}
 		//Aiming
 		//Toggle camera FOV when right click is held down
 		if(Input.GetButton("Fire2") && !isReloading && !isRunning && !isInspecting&&!holstered&&!waitAnim) 

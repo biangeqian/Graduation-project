@@ -46,10 +46,12 @@ public class Canvas_loading : MonoBehaviour
     IEnumerator WaitMovieDone()
     {
         yield return new WaitForSeconds(moviePlayDoneTime);
+        GameManager.Instance.CanvasStack.Clear();
         async.allowSceneActivation=true;
     }
     void Skip()
     {
+        GameManager.Instance.CanvasStack.Clear();
         async.allowSceneActivation=true;
     }
 }

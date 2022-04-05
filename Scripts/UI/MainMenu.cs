@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -29,11 +30,17 @@ public class MainMenu : MonoBehaviour
         settingBtn.onClick.AddListener(GoSetting);
         escapeBtn.onClick.AddListener(Quit);
     }
+    private void Start() 
+    {
+        GameManager.Instance.MainMenu=this.gameObject;
+        canvas_settings=GameManager.Instance.SettingUI;
+    }
     void StartGame()
     {
         UnityEngine.Debug.Log("开始游戏");
         canvas_maps.SetActive(true);
         gameObject.SetActive(false);
+        GameManager.Instance.CanvasStack.Push(canvas_maps);
     }
     void GoHouse()
     {
@@ -46,12 +53,14 @@ public class MainMenu : MonoBehaviour
     void GoShooting()
     {
         UnityEngine.Debug.Log("打开靶场");
+        GameManager.Instance.CanvasStack.Clear();
+        SceneManager.LoadSceneAsync("Assault_Rifle_01_Demo");
     }
     void GoSetting()
     {
         UnityEngine.Debug.Log("打开设置");
         canvas_settings.SetActive(true);
-        gameObject.SetActive(false);
+        GameManager.Instance.CanvasStack.Push(canvas_settings);
     }
     void Quit()
     {

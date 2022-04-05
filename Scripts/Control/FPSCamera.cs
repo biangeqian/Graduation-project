@@ -36,6 +36,10 @@ public class FPSCamera : MonoBehaviour
     }
     void LateUpdate()
     {
+        if(GameManager.Instance.CanvasStack.Count>0)
+        {
+            return;
+        }
         var MouseX=Input.GetAxis("Mouse X");
         var MouseY=Input.GetAxis("Mouse Y");
         cameraRotation.x-=MouseY*ySpeed;
