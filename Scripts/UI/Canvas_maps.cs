@@ -27,13 +27,11 @@ public class Canvas_maps : MonoBehaviour
     {
         GameObject curMenu=GameManager.Instance.CanvasStack.Pop();
         curMenu.SetActive(false);
+        GameManager.Instance.MainMenu.SetActive(true);
     }
     private void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            GoMainMenu();
-        }
+        
     }
     IEnumerator LoadMaps()
     {

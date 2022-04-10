@@ -13,9 +13,13 @@ public class GameManager : Singleton<GameManager>
     }
     public string sceneName="Menu";
     public GameObject SettingUI;
+    public GameObject CanvasInventory;
 
+    [HideInInspector]
     public GameObject MainMenu;
+    [HideInInspector]
     public GameObject HitFeedbackUI;
+    [HideInInspector]
     public GameObject Player;
     public Stack<GameObject> CanvasStack=new Stack<GameObject>();
 
@@ -52,7 +56,6 @@ public class GameManager : Singleton<GameManager>
                     MainMenu.SetActive(true);
                 }
             }
-            
         }
     }
     public void cleanStack()

@@ -13,7 +13,9 @@ public class MainMenu : MonoBehaviour
     Button settingBtn;
     Button escapeBtn;
     public GameObject canvas_maps;
-    public GameObject canvas_settings;
+    public GameObject canvas_market;
+    private GameObject canvas_settings;
+    private GameObject canvas_inventory;
     private void Awake() 
     {
         startBtn=transform.GetChild(1).GetComponent<Button>();
@@ -34,6 +36,7 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.Instance.MainMenu=this.gameObject;
         canvas_settings=GameManager.Instance.SettingUI;
+        canvas_inventory=GameManager.Instance.CanvasInventory;
     }
     void StartGame()
     {
@@ -46,10 +49,18 @@ public class MainMenu : MonoBehaviour
     void GoHouse()
     {
         UnityEngine.Debug.Log("打开仓库");
+        canvas_inventory.SetActive(true);
+        gameObject.SetActive(false);
+        GameManager.Instance.cleanStack();
+        GameManager.Instance.CanvasStack.Push(canvas_inventory);
     }
     void GoMarket()
     {
         UnityEngine.Debug.Log("打开市场");
+        canvas_market.SetActive(true);
+        gameObject.SetActive(false);
+        GameManager.Instance.cleanStack();
+        GameManager.Instance.CanvasStack.Push(canvas_market);
     }
     void GoShooting()
     {
