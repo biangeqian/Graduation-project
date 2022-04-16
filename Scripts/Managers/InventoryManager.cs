@@ -7,7 +7,7 @@ public class InventoryManager : Singleton<InventoryManager>
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
 
         warehousePlayer=Instantiate(warehouseOrig);
     }
