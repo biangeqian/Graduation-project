@@ -8,7 +8,8 @@ public class ContainerUI : MonoBehaviour
     public ItemUI[] itemUIs;
     public int rowNumber=10;
     public int totalNumber=260;
-    public ItemData_SO testData;//for test
+    //public ItemData_SO testData;//for test
+    public InventoryData_SO marketData;
     public void RefreshUI()
     {
         for(int i = 0; i < itemUIs.Length; i++)
@@ -130,6 +131,76 @@ public class ContainerUI : MonoBehaviour
             }
         }
     }
+    public void loadData(InventoryData_SO data)
+    {
+        UnityEngine.Debug.Log(data.list.Count);
+        for(int i=0;i<data.list.Count;i++)
+        {
+            
+            if(data.list[i].itemData)
+            {
+                ItemData_SO itemData=data.list[i].itemData;
+                if(itemData.boxSize==1)
+                {
+                    //UI
+                    itemUIs[i].indexOfDataInBox=i;
+
+                    itemUIs[i].image.rectTransform.sizeDelta = new Vector2(64, 64);
+                    itemUIs[i].image.sprite=itemData.image;
+                    itemUIs[i].image.color=new Color(255,255,255,1);
+                    itemUIs[i].upText.text=itemData.descriptionName;
+                    
+                    if(data.list[i].currentStack>1)
+                    {
+                        itemUIs[i].bottomText.text=data.list[i].currentStack.ToString();
+                    }
+                }
+                else if(itemData.boxSize==2)
+                {
+                    //UI
+                    itemUIs[i].indexOfDataInBox=i;
+                    itemUIs[i+1].indexOfDataInBox=i;
+
+                    itemUIs[i].image.rectTransform.sizeDelta = new Vector2(128, 64);
+                    itemUIs[i].image.sprite=itemData.image;
+                    itemUIs[i].image.color=new Color(255,255,255,1);
+                    itemUIs[i].upText.text="";
+                }
+                else if(itemData.boxSize==4)
+                {
+                    //UI
+                    itemUIs[i].indexOfDataInBox=i;
+                    itemUIs[i+1].indexOfDataInBox=i;
+                    itemUIs[i+10].indexOfDataInBox=i;
+                    itemUIs[i+11].indexOfDataInBox=i;
+                    
+                    itemUIs[i].image.rectTransform.sizeDelta = new Vector2(128, 128);
+                    itemUIs[i].image.sprite=itemData.image;
+                    itemUIs[i].image.color=new Color(255,255,255,1);
+                    itemUIs[i].upText.text="";
+                }
+                else if(itemData.boxSize==10)
+                {
+                    //UI
+                    itemUIs[i].indexOfDataInBox=i;
+                    itemUIs[i+1].indexOfDataInBox=i;
+                    itemUIs[i+2].indexOfDataInBox=i;
+                    itemUIs[i+3].indexOfDataInBox=i;
+                    itemUIs[i+4].indexOfDataInBox=i;
+                    itemUIs[i+10].indexOfDataInBox=i;
+                    itemUIs[i+11].indexOfDataInBox=i;
+                    itemUIs[i+12].indexOfDataInBox=i;
+                    itemUIs[i+13].indexOfDataInBox=i;
+                    itemUIs[i+14].indexOfDataInBox=i;
+
+                    itemUIs[i].image.rectTransform.sizeDelta = new Vector2(320, 128);
+                    itemUIs[i].image.sprite=itemData.image;
+                    itemUIs[i].image.color=new Color(255,255,255,1);
+                    itemUIs[i].upText.text="";
+                }
+            }
+        }
+    }
     private bool check(int index)
     {
         if(index>=0&&index<totalNumber)
@@ -144,13 +215,17 @@ public class ContainerUI : MonoBehaviour
     private void Start() 
     {
         RefreshUI();
+        if(marketData)
+        {
+            loadData(marketData);
+        }
     }
     private void Update() 
     {
         //for test
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            AddItem(testData,1,-1);
-        }
+        // if(Input.GetKeyDown(KeyCode.K))
+        // {
+        //     AddItem(testData,1,-1);
+        // }
     }
 }

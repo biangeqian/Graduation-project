@@ -10,7 +10,7 @@ public class CanvasMarket : MonoBehaviour
     public Button Skier;
     public Button Therapist;
     public Button returnMenu;
-
+    public GameObject MechanicShop;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,8 @@ public class CanvasMarket : MonoBehaviour
     }
     void goMechanic()
     {
-
+        MechanicShop.SetActive(true);
+        GameManager.Instance.CanvasStack.Push(MechanicShop);
     }
     void goSkier()
     {

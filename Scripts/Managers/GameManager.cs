@@ -55,6 +55,11 @@ public class GameManager : Singleton<GameManager>
                 {
                     MainMenu.SetActive(true);
                 }
+                else if(CanvasStack.Count>0)
+                {
+                    GameObject preCanvas=CanvasStack.Peek();
+                    preCanvas.SetActive(true);
+                }
             }
         }
     }

@@ -8,7 +8,23 @@ using UnityEngine.SceneManagement;
 public class CanvasInventory : MonoBehaviour
 {
     public Button returnMenu;
-    
+    public GameObject inventory;
+    public GameObject bag;
+    public GameObject safeBag;
+    private bool isReturnMainMenu = true;
+    private void OnEnable() 
+    {
+        inventory.SetActive(true);
+        bag.SetActive(true);
+        safeBag.SetActive(true);
+        isReturnMainMenu = true;
+    }
+    public void setMarketModel()
+    {
+        bag.SetActive(false);
+        safeBag.SetActive(false);
+        isReturnMainMenu = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +40,13 @@ public class CanvasInventory : MonoBehaviour
     {
         GameObject curMenu=GameManager.Instance.CanvasStack.Pop();
         curMenu.SetActive(false);
-        GameManager.Instance.MainMenu.SetActive(true);
+        if(isReturnMainMenu)
+        {
+            GameManager.Instance.MainMenu.SetActive(true);
+        }
+    }
+    void GoMarketMenu()
+    {
+
     }
 }

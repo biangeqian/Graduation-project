@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="FPS/InventoryData")]
 public class InventoryData_SO : ScriptableObject
 {
+    public enum Owned{Bag,Inventory,Market};
+    public Owned owned;
     public List<Item> list=new List<Item>();
     
 }

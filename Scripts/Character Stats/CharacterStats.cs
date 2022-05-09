@@ -143,4 +143,10 @@ public class CharacterStats : MonoBehaviour
             CurrentHealth=MaxHealth;
     }
     #endregion
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackData.attackRange);
+    }
 }

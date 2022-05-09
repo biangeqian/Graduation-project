@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler
+public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerClickHandler,IPointerEnterHandler
 {
     private bool canDrag;
     private int size;
@@ -14,6 +14,10 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     public int totalNumber=260;
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if(GetComponentInParent<ContainerUI>().marketData)
+        {
+            return;//商店物品不可拖动
+        }
         //拖拽的格子有物体
         if(GetComponentInParent<ItemUI>().indexOfDataInBox!=-1)
         {
@@ -129,6 +133,14 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
             }
             dragDefault();  
         }   
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        
     }
     private bool check(int index)
     {
