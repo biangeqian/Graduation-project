@@ -10,6 +10,8 @@ public class InventoryManager : Singleton<InventoryManager>
         //DontDestroyOnLoad(this);
 
         warehousePlayer=Instantiate(warehouseOrig);
+        bagPlayer=Instantiate(bagOrig);
+        safeBagPlayer=Instantiate(safeBagOrig);
     }
     [Header("Inventory Data")]
     public InventoryData_SO warehouseOrig;
@@ -41,7 +43,7 @@ public class InventoryManager : Singleton<InventoryManager>
         
     }
     #region 检查拖拽物品是否在UI范围内
-    public int CheckInWarehouseUI(Vector3 position)
+    public int CheckInventoryUI(Vector3 position)
     {
         RectTransform t1=warehouseContainer.transform as RectTransform;
         RectTransform t2=bagContainer.transform as RectTransform;

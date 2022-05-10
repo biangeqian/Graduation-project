@@ -11,9 +11,13 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     private int size;
     private int indexD;
     private Transform dragItem;
-    public int rowNumber=10;
-    public int totalNumber=260;
-    private Item currentShopItem;
+
+    private int dragBeginModel;
+    private List<Item> dragBeginList;
+    private ContainerUI dragBeginContainer;
+    private int dragEndModel;
+    private List<Item> dragEndList;
+    private ContainerUI dragEndContainer;
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(GetComponentInParent<ContainerUI>().marketData)
@@ -24,40 +28,56 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
         if(GetComponentInParent<ItemUI>().indexOfDataInBox!=-1)
         {
             canDrag=true;
+            dragBeginModel=InventoryManager.Instance.CheckInventoryUI(eventData.position);
+            if(dragBeginModel==1)
+            {
+                dragBeginList=InventoryManager.Instance.warehousePlayer.list;
+                dragBeginContainer=InventoryManager.Instance.warehouseContainer;
+            }
+            else if(dragBeginModel==2)
+            {
+                dragBeginList=InventoryManager.Instance.bagPlayer.list;
+                dragBeginContainer=InventoryManager.Instance.bagContainer;
+            }
+            else if(dragBeginModel==3)
+            {
+                dragBeginList=InventoryManager.Instance.safeBagPlayer.list;
+                dragBeginContainer=InventoryManager.Instance.safeBagContainer;
+            }
             
             //记录原始数据
             indexD=GetComponentInParent<ItemUI>().indexOfDataInBox;
-            size=InventoryManager.Instance.warehousePlayer.list[indexD].itemData.boxSize;
-            dragItem=InventoryManager.Instance.warehouseContainer.itemUIs[indexD].transform.GetChild(0);
+            size=dragBeginList[indexD].itemData.boxSize;
+            dragItem=dragBeginContainer.itemUIs[indexD].transform.GetChild(0);
 
             if(size==1)
             {
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD].indexOfDataInBox=-1;
             }
             else if(size==10)
             {
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+2].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+3].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+4].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+10].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+11].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+12].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+13].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+14].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+1].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+2].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+3].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+4].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+1].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+2].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+3].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+4].indexOfDataInBox=-1;
             }
             else if(size==4)
             {
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=-1; 
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+10].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+11].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+1].indexOfDataInBox=-1; 
+                dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+1].indexOfDataInBox=-1;
             }
             else if(size==2)
             {
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=-1;
-                InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=-1; 
+                dragBeginContainer.itemUIs[indexD].indexOfDataInBox=-1;
+                dragBeginContainer.itemUIs[indexD+1].indexOfDataInBox=-1; 
             }
 
             InventoryManager.Instance.dragOrigParent=(RectTransform)dragItem.parent;
@@ -83,52 +103,69 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     {
         if(canDrag)
         {
-            //是否指向UI物体
-            if(InventoryManager.Instance.CheckInWarehouseUI(eventData.position)==1)
+            dragEndModel=InventoryManager.Instance.CheckInventoryUI(eventData.position);
+            if(dragEndModel==1)
             {
-                ItemUI targetItemUI=eventData.pointerEnter.gameObject.GetComponentInParent<ItemUI>();
-                if(targetItemUI)
+                dragEndList=InventoryManager.Instance.warehousePlayer.list;
+                dragEndContainer=InventoryManager.Instance.warehouseContainer;
+            }
+            else if(dragEndModel==2)
+            {
+                dragEndList=InventoryManager.Instance.bagPlayer.list;
+                dragEndContainer=InventoryManager.Instance.bagContainer;
+            }
+            else if(dragEndModel==3)
+            {
+                dragEndList=InventoryManager.Instance.safeBagPlayer.list;
+                dragEndContainer=InventoryManager.Instance.safeBagContainer;
+            }
+            else
+            {
+                dragDefault();
+                return;
+            }
+            ItemUI targetItemUI=eventData.pointerEnter.gameObject.GetComponentInParent<ItemUI>();
+            if(targetItemUI)
+            {
+                if(size==1)
                 {
-                    if(size==1)
+                    if(check(targetItemUI.Index))
                     {
-                        if(check(targetItemUI.Index))
+                        SwapWithTarget(targetItemUI.Index);
+                        return;
+                    }
+                }
+                else if(size==10)
+                {
+                    if(targetItemUI.Index/dragEndContainer.rowNumber==(targetItemUI.Index+4)/dragEndContainer.rowNumber)
+                    {
+                        if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+2)&&check(targetItemUI.Index+3)&&check(targetItemUI.Index+4)
+                        &&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11)&&check(targetItemUI.Index+12)&&check(targetItemUI.Index+13)&&check(targetItemUI.Index+14))
                         {
                             SwapWithTarget(targetItemUI.Index);
                             return;
                         }
                     }
-                    else if(size==10)
+                }
+                else if(size==4)
+                {
+                    if(targetItemUI.Index/dragEndContainer.rowNumber==(targetItemUI.Index+1)/dragEndContainer.rowNumber)
                     {
-                        if(targetItemUI.Index/rowNumber==(targetItemUI.Index+4)/rowNumber)
+                        if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11))
                         {
-                            if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+2)&&check(targetItemUI.Index+3)&&check(targetItemUI.Index+4)
-                            &&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11)&&check(targetItemUI.Index+12)&&check(targetItemUI.Index+13)&&check(targetItemUI.Index+14))
-                            {
-                                SwapWithTarget(targetItemUI.Index);
-                                return;
-                            }
+                            SwapWithTarget(targetItemUI.Index);
+                            return;
                         }
                     }
-                    else if(size==4)
+                }
+                else if(size==2)
+                {
+                    if(targetItemUI.Index/dragEndContainer.rowNumber==(targetItemUI.Index+1)/dragEndContainer.rowNumber)
                     {
-                        if(targetItemUI.Index/rowNumber==(targetItemUI.Index+1)/rowNumber)
+                        if(check(targetItemUI.Index)&&check(targetItemUI.Index+1))
                         {
-                            if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11))
-                            {
-                                SwapWithTarget(targetItemUI.Index);
-                                return;
-                            }
-                        }
-                    }
-                    else if(size==2)
-                    {
-                        if(targetItemUI.Index/rowNumber==(targetItemUI.Index+1)/rowNumber)
-                        {
-                            if(check(targetItemUI.Index)&&check(targetItemUI.Index+1))
-                            {
-                                SwapWithTarget(targetItemUI.Index);
-                                return;
-                            }
+                            SwapWithTarget(targetItemUI.Index);
+                            return;
                         }
                     }
                 }
@@ -169,9 +206,9 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     }
     private bool check(int index)
     {
-        if(index>=0&&index<totalNumber)
+        if(index>=0&&index<dragEndContainer.totalNumber)
         {
-            if(InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox==-1)
+            if(dragEndContainer.itemUIs[index].indexOfDataInBox==-1)
             {
                 return true;
             }
@@ -184,37 +221,37 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
         dragItem.position=InventoryManager.Instance.dragOrigParent.position;
         if(size==1)
         {
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD].indexOfDataInBox=indexD;
         }
         else if(size==10)
         {
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+2].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+3].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+4].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+10].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+11].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+12].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+13].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+14].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+2].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+3].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+4].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+10].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+11].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+12].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+13].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+14].indexOfDataInBox=indexD;
         }
         else if(size==4)
         {
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+10].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+11].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+10].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+11].indexOfDataInBox=indexD;
         }
         else if(size==2)
         {
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].indexOfDataInBox=indexD;
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
         }
     }
     private Item GetItemData(int index)
     {
-        return InventoryManager.Instance.warehousePlayer.list[index];
+        return dragBeginList[index];
     }
     private void SwapWithTarget(int index)
     {
@@ -222,78 +259,78 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
         {
             //Data
             //交换目标格子在数据列表中的item数据
-            InventoryManager.Instance.warehousePlayer.list[index]=GetItemData(indexD);
-            InventoryManager.Instance.warehousePlayer.list[indexD]=null;
+            dragEndList[index]=GetItemData(indexD);
+            dragBeginList[indexD]=null;
             //UI交换位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
-            dragItem.SetParent(InventoryManager.Instance.warehouseContainer.itemUIs[index].transform,false);
-            dragItem.position=InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.position;
+            dragEndContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
+            dragItem.SetParent(dragEndContainer.itemUIs[index].transform,false);
+            dragItem.position=dragEndContainer.itemUIs[index].transform.position;
             //记录数据存放位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index].indexOfDataInBox=index;
             //刷新子物体
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].RefreshImageAndText();
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].RefreshImageAndText();
+            dragEndContainer.itemUIs[index].RefreshImageAndText();
+            dragBeginContainer.itemUIs[indexD].RefreshImageAndText();
         }
         else if(size==10)
         {
             //Data
             //交换目标格子在数据列表中的item数据
-            InventoryManager.Instance.warehousePlayer.list[index]=GetItemData(indexD);
-            InventoryManager.Instance.warehousePlayer.list[indexD]=null;
+            dragEndList[index]=GetItemData(indexD);
+            dragBeginList[indexD]=null;
             //UI交换位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
-            dragItem.SetParent(InventoryManager.Instance.warehouseContainer.itemUIs[index].transform,false);
-            dragItem.position=InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.position;
+            dragEndContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
+            dragItem.SetParent(dragEndContainer.itemUIs[index].transform,false);
+            dragItem.position=dragEndContainer.itemUIs[index].transform.position;
             //记录数据存放位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+1].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+2].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+3].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+4].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+10].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+11].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+12].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+13].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+14].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+1].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+2].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+3].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+4].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+dragEndContainer.rowNumber].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+dragEndContainer.rowNumber+1].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+dragEndContainer.rowNumber+2].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+dragEndContainer.rowNumber+3].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+dragEndContainer.rowNumber+4].indexOfDataInBox=index;
             //刷新子物体
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].RefreshImageAndText();
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].RefreshImageAndText();
+            dragEndContainer.itemUIs[index].RefreshImageAndText();
+            dragBeginContainer.itemUIs[indexD].RefreshImageAndText();
         }
         else if(size==4)
         {
             //Data
             //交换目标格子在数据列表中的item数据
-            InventoryManager.Instance.warehousePlayer.list[index]=GetItemData(indexD);
-            InventoryManager.Instance.warehousePlayer.list[indexD]=null;
+            dragEndList[index]=GetItemData(indexD);
+            dragBeginList[indexD]=null;
             //UI交换位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
-            dragItem.SetParent(InventoryManager.Instance.warehouseContainer.itemUIs[index].transform,false);
-            dragItem.position=InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.position;
+            dragEndContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
+            dragItem.SetParent(dragEndContainer.itemUIs[index].transform,false);
+            dragItem.position=dragEndContainer.itemUIs[index].transform.position;
             //记录数据存放位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+1].indexOfDataInBox=index; 
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+10].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+11].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+1].indexOfDataInBox=index; 
+            dragEndContainer.itemUIs[index+dragEndContainer.rowNumber].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+dragEndContainer.rowNumber+1].indexOfDataInBox=index;
             //刷新子物体
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].RefreshImageAndText();
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].RefreshImageAndText();
+            dragEndContainer.itemUIs[index].RefreshImageAndText();
+            dragBeginContainer.itemUIs[indexD].RefreshImageAndText();
         }
         else if(size==2)
         {
             //Data
             //交换目标格子在数据列表中的item数据
-            InventoryManager.Instance.warehousePlayer.list[index]=GetItemData(indexD);
-            InventoryManager.Instance.warehousePlayer.list[indexD]=null;
+            dragEndList[index]=GetItemData(indexD);
+            dragBeginList[indexD]=null;
             //UI交换位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
-            dragItem.SetParent(InventoryManager.Instance.warehouseContainer.itemUIs[index].transform,false);
-            dragItem.position=InventoryManager.Instance.warehouseContainer.itemUIs[index].transform.position;
+            dragEndContainer.itemUIs[index].transform.GetChild(0).SetParent(InventoryManager.Instance.dragOrigParent,false);
+            dragItem.SetParent(dragEndContainer.itemUIs[index].transform,false);
+            dragItem.position=dragEndContainer.itemUIs[index].transform.position;
             //记录数据存放位置
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].indexOfDataInBox=index;
-            InventoryManager.Instance.warehouseContainer.itemUIs[index+1].indexOfDataInBox=index; 
+            dragEndContainer.itemUIs[index].indexOfDataInBox=index;
+            dragEndContainer.itemUIs[index+1].indexOfDataInBox=index; 
             //刷新子物体
-            InventoryManager.Instance.warehouseContainer.itemUIs[index].RefreshImageAndText();
-            InventoryManager.Instance.warehouseContainer.itemUIs[indexD].RefreshImageAndText();
+            dragEndContainer.itemUIs[index].RefreshImageAndText();
+            dragBeginContainer.itemUIs[indexD].RefreshImageAndText();
         }
     }
 }
