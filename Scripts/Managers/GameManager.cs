@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(this);
     }
     public string sceneName="Menu";
+    public int playerMoney = 500000;
     public GameObject SettingUI;
     public GameObject CanvasInventory;
 

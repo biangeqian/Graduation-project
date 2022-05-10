@@ -41,14 +41,27 @@ public class InventoryManager : Singleton<InventoryManager>
         
     }
     #region 检查拖拽物品是否在UI范围内
-    public bool CheckInWarehouseUI(Vector3 position)
+    public int CheckInWarehouseUI(Vector3 position)
     {
-        RectTransform t=warehouseContainer.transform as RectTransform;
-        if(RectTransformUtility.RectangleContainsScreenPoint(t,position))
+        RectTransform t1=warehouseContainer.transform as RectTransform;
+        RectTransform t2=bagContainer.transform as RectTransform;
+        RectTransform t3=safeBagContainer.transform as RectTransform;
+        if(RectTransformUtility.RectangleContainsScreenPoint(t1,position))
         {
-            return true;
+            UnityEngine.Debug.Log("仓库区域");
+            return 1;
         }
-        return false;
+        else if(RectTransformUtility.RectangleContainsScreenPoint(t2,position))
+        {
+            UnityEngine.Debug.Log("背包区域");
+            return 2;
+        }
+        else if(RectTransformUtility.RectangleContainsScreenPoint(t3,position))
+        {
+            UnityEngine.Debug.Log("安全箱区域");
+            return 3;
+        }
+        return 0;
     }
     #endregion
 }

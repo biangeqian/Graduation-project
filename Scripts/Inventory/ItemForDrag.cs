@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerClickHandler,IPointerEnterHandler
 {
@@ -12,6 +13,7 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     private Transform dragItem;
     public int rowNumber=10;
     public int totalNumber=260;
+    private Item currentShopItem;
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(GetComponentInParent<ContainerUI>().marketData)
@@ -82,7 +84,7 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
         if(canDrag)
         {
             //是否指向UI物体
-            if(InventoryManager.Instance.CheckInWarehouseUI(eventData.position))
+            if(InventoryManager.Instance.CheckInWarehouseUI(eventData.position)==1)
             {
                 ItemUI targetItemUI=eventData.pointerEnter.gameObject.GetComponentInParent<ItemUI>();
                 if(targetItemUI)
@@ -136,7 +138,30 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        ShopDialogue shopDialogue=GameManager.Instance.CanvasStack.Peek().GetComponent<ShopDialogue>();
+        if(shopDialogue)
+        {
+            if(GetComponentInParent<ContainerUI>().marketData)
+            {
+                //买
+                var marketData=GetComponentInParent<ContainerUI>().marketData;
+                int index=eventData.pointerEnter.gameObject.GetComponentInParent<ItemUI>().indexOfDataInBox;
+                if(index>=0)
+                {
+                    shopDialogue.setCurrentShopItem(marketData.list[index],0,index);
+                }
+            }
+            else
+            {
+                //卖
+                int index=eventData.pointerEnter.gameObject.GetComponentInParent<ItemUI>().indexOfDataInBox;
+                if(index>=0)
+                {
+                    shopDialogue.setCurrentShopItem(InventoryManager.Instance.warehousePlayer.list[index],1,index);
+                }
+                
+            }
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

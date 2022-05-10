@@ -18,7 +18,7 @@ public class ContainerUI : MonoBehaviour
             
         }
     }
-    public void AddItem(ItemData_SO itemData,int number,int useTimes)
+    public int AddItem(ItemData_SO itemData,int number,int useTimes)
     {
         //一格的物品
         if(itemData.boxSize==1)
@@ -28,8 +28,7 @@ public class ContainerUI : MonoBehaviour
                 if(check(i))
                 {
                     UnityEngine.Debug.Log("在第"+i+"格添加1格物品");
-                    //Data
-                    InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
+                    
                     //UI
                     itemUIs[i].indexOfDataInBox=i;
 
@@ -38,11 +37,20 @@ public class ContainerUI : MonoBehaviour
                     itemUIs[i].image.color=new Color(255,255,255,1);
                     itemUIs[i].upText.text=itemData.descriptionName;
                     
-                    if(number>1)
+                    if(itemData.isStackable)
                     {
+                        //Data
+                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
                         itemUIs[i].bottomText.text=number.ToString();
+                        return 0;
                     }
-                    break;
+                    else
+                    {
+                        //Data
+                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,1,useTimes);
+                        number--;
+                        if(number<=0) break;
+                    }
                 }
             }
         }
@@ -58,7 +66,7 @@ public class ContainerUI : MonoBehaviour
                     {
                         UnityEngine.Debug.Log("在第"+i+"格添加10格物品");
                         //Data
-                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
+                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,1,useTimes);
                         //UI
                         itemUIs[i].indexOfDataInBox=i;
                         itemUIs[i+1].indexOfDataInBox=i;
@@ -75,7 +83,8 @@ public class ContainerUI : MonoBehaviour
                         itemUIs[i].image.sprite=itemData.image;
                         itemUIs[i].image.color=new Color(255,255,255,1);
                         itemUIs[i].upText.text="";
-                        break;
+                        number--;
+                        if(number<=0) break;
                     }
                 }
             }
@@ -90,7 +99,7 @@ public class ContainerUI : MonoBehaviour
                     {
                         UnityEngine.Debug.Log("在第"+i+"格添加4格物品");
                         //Data
-                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
+                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,1,useTimes);
                         //UI
                         itemUIs[i].indexOfDataInBox=i;
                         itemUIs[i+1].indexOfDataInBox=i;
@@ -101,7 +110,8 @@ public class ContainerUI : MonoBehaviour
                         itemUIs[i].image.sprite=itemData.image;
                         itemUIs[i].image.color=new Color(255,255,255,1);
                         itemUIs[i].upText.text="";
-                        break;
+                        number--;
+                        if(number<=0) break;
                     }
                 }
             }
@@ -116,7 +126,7 @@ public class ContainerUI : MonoBehaviour
                     {
                         UnityEngine.Debug.Log("在第"+i+"格添加2格物品");
                         //Data
-                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,number,useTimes);
+                        InventoryManager.Instance.warehousePlayer.list[i]=new Item(itemData,1,useTimes);
                         //UI
                         itemUIs[i].indexOfDataInBox=i;
                         itemUIs[i+1].indexOfDataInBox=i;
@@ -125,10 +135,86 @@ public class ContainerUI : MonoBehaviour
                         itemUIs[i].image.sprite=itemData.image;
                         itemUIs[i].image.color=new Color(255,255,255,1);
                         itemUIs[i].upText.text="";
-                        break;
+                        number--;
+                        if(number<=0) break;
                     }
                 }
             }
+        }
+        return number;
+    }
+    public void DeleteItem(int index,int number)
+    {
+        var item=InventoryManager.Instance.warehousePlayer.list[index];
+        if(item.itemData.boxSize==1)
+        {
+            if(item.currentStack-number>0)
+            {
+                item.currentStack-=number;
+                itemUIs[index].bottomText.text=item.currentStack.ToString();
+            }
+            else
+            {
+                //Data
+                item=null;
+                //UI
+                itemUIs[index].indexOfDataInBox=-1;
+
+                itemUIs[index].image.rectTransform.sizeDelta = new Vector2(64, 64);
+                itemUIs[index].image.sprite=null;
+                itemUIs[index].image.color=new Color(255,255,255,0);
+                itemUIs[index].upText.text="";
+                itemUIs[index].bottomText.text="";
+            }
+        }
+        else if(item.itemData.boxSize==2)
+        {
+            //Data
+            item=null;
+            //UI
+            itemUIs[index].indexOfDataInBox=-1;
+            itemUIs[index+1].indexOfDataInBox=-1;
+
+            itemUIs[index].image.rectTransform.sizeDelta = new Vector2(64, 64);
+            itemUIs[index].image.sprite=null;
+            itemUIs[index].image.color=new Color(255,255,255,0);
+            itemUIs[index].upText.text="";
+        }
+        else if(item.itemData.boxSize==4)
+        {
+            //Data
+            item=null;
+            //UI
+            itemUIs[index].indexOfDataInBox=-1;
+            itemUIs[index+1].indexOfDataInBox=-1;
+            itemUIs[index+10].indexOfDataInBox=-1;
+            itemUIs[index+11].indexOfDataInBox=-1;
+
+            itemUIs[index].image.rectTransform.sizeDelta = new Vector2(64, 64);
+            itemUIs[index].image.sprite=null;
+            itemUIs[index].image.color=new Color(255,255,255,0);
+            itemUIs[index].upText.text="";
+        }
+        else if(item.itemData.boxSize==10)
+        {
+            //Data
+            item=null;
+            //UI
+            itemUIs[index].indexOfDataInBox=-1;
+            itemUIs[index+1].indexOfDataInBox=-1;
+            itemUIs[index+2].indexOfDataInBox=-1;
+            itemUIs[index+3].indexOfDataInBox=-1;
+            itemUIs[index+4].indexOfDataInBox=-1;
+            itemUIs[index+10].indexOfDataInBox=-1;
+            itemUIs[index+11].indexOfDataInBox=-1;
+            itemUIs[index+12].indexOfDataInBox=-1;
+            itemUIs[index+13].indexOfDataInBox=-1;
+            itemUIs[index+14].indexOfDataInBox=-1;
+
+            itemUIs[index].image.rectTransform.sizeDelta = new Vector2(64, 64);
+            itemUIs[index].image.sprite=null;
+            itemUIs[index].image.color=new Color(255,255,255,0);
+            itemUIs[index].upText.text="";
         }
     }
     public void loadData(InventoryData_SO data)

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class CanvasInventory : MonoBehaviour
 {
+    public Text Money;
     public Button returnMenu;
     public GameObject inventory;
     public GameObject bag;
@@ -18,6 +19,7 @@ public class CanvasInventory : MonoBehaviour
         bag.SetActive(true);
         safeBag.SetActive(true);
         isReturnMainMenu = true;
+        Money.text="₽  "+GameManager.Instance.playerMoney.ToString();
     }
     public void setMarketModel()
     {
