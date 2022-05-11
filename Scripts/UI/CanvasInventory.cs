@@ -27,6 +27,11 @@ public class CanvasInventory : MonoBehaviour
         safeBag.SetActive(false);
         isReturnMainMenu = false;
     }
+    public void setBattleModel()
+    {
+        inventory.SetActive(false);
+        isReturnMainMenu = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -46,9 +51,5 @@ public class CanvasInventory : MonoBehaviour
         {
             GameManager.Instance.MainMenu.SetActive(true);
         }
-    }
-    void GoMarketMenu()
-    {
-
     }
 }

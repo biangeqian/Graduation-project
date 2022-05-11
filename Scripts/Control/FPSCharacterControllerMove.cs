@@ -8,6 +8,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
     private CharacterController characterController;
     private Animator characterAnimator;
     private Transform characterTransform;
+    private GameObject inventory;
 
     [Header("Property")]
     private Vector3 moveDirection;
@@ -34,7 +35,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
     private void Start() 
     {
         GameManager.Instance.Player=gameObject;
-
+        inventory=GameManager.Instance.CanvasInventory.gameObject;
         //隐藏鼠标
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -110,6 +111,21 @@ public class FPSCharacterControllerMove : MonoBehaviour
         _Run=(currentSpeed==runSpeed)?true:false;
 
         SetAnimator();
+
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            if(inventory.activeSelf)
+            {
+                inventory.SetActive(false);
+                GameManager.Instance.CanvasStack.Pop();
+            }
+            else
+            {
+                inventory.SetActive(true);
+                GameManager.Instance.CanvasStack.Push(inventory);
+                inventory.GetComponent<CanvasInventory>().setBattleModel();
+            }
+        }
     }
     private IEnumerator DoCrouch(float target)
     {
