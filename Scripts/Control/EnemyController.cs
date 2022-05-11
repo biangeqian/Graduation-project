@@ -222,6 +222,8 @@ public class EnemyController : MonoBehaviour
                 agent.radius = 0;
                 //死亡后延迟两秒销毁
                 Destroy(gameObject, 2f);
+                //留下一个盒子
+                
                 break;
         }
     }

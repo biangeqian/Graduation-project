@@ -226,6 +226,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		public Transform bulletSpawnPoint;
 
 		public Transform grenadeSpawnPoint;
+		public BoxCollider knifeColid;
 	}
 	public spawnpoints Spawnpoints;
 
@@ -661,10 +662,10 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			anim.Play ("Knife Attack 1", 0, 0f);
 		}
 		//Play knife attack 2 animation when F key is pressed
-		if (Input.GetKeyDown (KeyCode.F) && !isInspecting&&!isReloading&&!waitAnim) 
-		{
-			anim.Play ("Knife Attack 2", 0, 0f);
-		}
+		// if (Input.GetKeyDown (KeyCode.F) && !isInspecting&&!isReloading&&!waitAnim) 
+		// {
+		// 	anim.Play ("Knife Attack 2", 0, 0f);
+		// }
 			
 		//Throw grenade when pressing G key
 		if (Input.GetKeyDown (KeyCode.G) && !isInspecting&&!isReloading&&!waitAnim) 
@@ -1025,4 +1026,28 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			waitAnim = false;
 		}
 	}
+	void Hit()
+    {
+        if(Spawnpoints.knifeColid.gameObject.GetComponent<KnifeHit>().isHitEnemy)
+		{
+			GameObject hitTarget = Spawnpoints.knifeColid.gameObject.GetComponent<KnifeHit>().hitTarget;
+			if(hitTarget)
+			{
+				var targetStats = hitTarget.GetComponent<CharacterStats>();
+				if(targetStats.CurrentHealth>0)
+				{
+					targetStats.TakeDamage(5, targetStats);
+					//显示击中反馈
+					if(GameManager.Instance.HitFeedbackUI.activeSelf==false)
+					{
+						GameManager.Instance.HitFeedbackUI.SetActive(true);
+					}
+					else
+					{
+						GameManager.Instance.HitFeedbackUI.GetComponent<HitFeedback>().addTime();
+					}
+				}	
+			}
+		}
+    }
 }

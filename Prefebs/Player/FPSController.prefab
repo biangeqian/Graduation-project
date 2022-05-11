@@ -1,5 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &512376644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 512376645}
+  - component: {fileID: 512376646}
+  - component: {fileID: 2624521622182814297}
+  m_Layer: 8
+  m_Name: knifecolid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &512376645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512376644}
+  m_LocalRotation: {x: 0.00013117747, y: -0.019633383, z: 0.9997849, w: -0.006679966}
+  m_LocalPosition: {x: 0.04, y: -0.56, z: 0.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2778014979200512868}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &512376646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512376644}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2624521622182814297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512376644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d6281e1fdb36542a08d6a8c06d7d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHitEnemy: 0
+  hitTarget: {fileID: 0}
 --- !u!1 &2780987843500824902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,6 +2075,7 @@ Transform:
   m_Children:
   - {fileID: 2779740427137245434}
   - {fileID: 2777665265073966476}
+  - {fileID: 512376645}
   m_Father: {fileID: 2777601355892511664}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13118,6 +13178,7 @@ MonoBehaviour:
     casingSpawnPoint: {fileID: 2777780422207022854}
     bulletSpawnPoint: {fileID: 2779339108299853186}
     grenadeSpawnPoint: {fileID: 2779310647013593666}
+    knifeColid: {fileID: 512376646}
   SoundClips:
     shootSound: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
     silencerShootSound: {fileID: 8300000, guid: f9ce3352943c16244a2e1504722c93c6, type: 3}
@@ -13859,7 +13920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   templateData: {fileID: 11400000, guid: 8157167473aa4bb4d800b63ee519074b, type: 2}
   characterData: {fileID: 0}
-  attackData: {fileID: 0}
+  attackData: {fileID: 11400000, guid: 31cbd7242b82b444f81d7ef8d0778ac2, type: 2}
   isPlayer: 1
 --- !u!1 &2789011351215286752
 GameObject:

@@ -110,6 +110,20 @@ public class GrenadeScript : MonoBehaviour {
 				//Reduce explosion timer on gas tank object to make it explode faster
 				hit.gameObject.GetComponent<GasTankScript> ().explosionTimer = 0.05f;
 			}
+			if (hit.GetComponent<Collider>().tag == "Enemy") 
+			{
+				var targetStats = hit.gameObject.GetComponent<CharacterStats>();
+				targetStats.TakeDamage(20, targetStats);
+				//显示击中反馈
+				if(GameManager.Instance.HitFeedbackUI.activeSelf==false)
+				{
+					GameManager.Instance.HitFeedbackUI.SetActive(true);
+				}
+				else
+				{
+					GameManager.Instance.HitFeedbackUI.GetComponent<HitFeedback>().addTime();
+				}
+			}
 		}
 
 		//Destroy the grenade object on explosion
