@@ -5,6 +5,7 @@ using UnityEngine;
 public class FPSCharacterControllerMove : MonoBehaviour
 {
     [Header("Components")]
+    public GameObject deathCanvas;
     private CharacterController characterController;
     private Animator characterAnimator;
     private Transform characterTransform;
@@ -54,6 +55,16 @@ public class FPSCharacterControllerMove : MonoBehaviour
     }
     private void Update() 
     {
+        if(playerCharacterStats.CurrentHealth<=0)
+        {
+            if(!deathCanvas.activeSelf)
+            {
+                GameManager.Instance.cleanStack();
+                deathCanvas.SetActive(true);
+                GameManager.Instance.CanvasStack.Push(deathCanvas);
+            }
+            return;
+        }
         //isGrounded只记录最后一次调用Move后的位置
         if(characterController.isGrounded)
         {

@@ -50,6 +50,7 @@ public class GameManager : Singleton<GameManager>
             }
             else
             {
+                if(CanvasStack.Peek().name=="DeathCanvas") return;
                 GameObject topCanvas=CanvasStack.Pop();
                 topCanvas.SetActive(false);
                 if(SceneManager.GetActiveScene().name=="Menu"&&CanvasStack.Count==0)
