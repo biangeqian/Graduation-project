@@ -140,7 +140,7 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
                     if(targetItemUI.Index/dragEndContainer.rowNumber==(targetItemUI.Index+4)/dragEndContainer.rowNumber)
                     {
                         if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+2)&&check(targetItemUI.Index+3)&&check(targetItemUI.Index+4)
-                        &&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11)&&check(targetItemUI.Index+12)&&check(targetItemUI.Index+13)&&check(targetItemUI.Index+14))
+                        &&check(targetItemUI.Index+dragEndContainer.rowNumber)&&check(targetItemUI.Index+dragEndContainer.rowNumber+1)&&check(targetItemUI.Index+dragEndContainer.rowNumber+2)&&check(targetItemUI.Index+dragEndContainer.rowNumber+3)&&check(targetItemUI.Index+dragEndContainer.rowNumber+4))
                         {
                             SwapWithTarget(targetItemUI.Index);
                             return;
@@ -151,7 +151,7 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
                 {
                     if(targetItemUI.Index/dragEndContainer.rowNumber==(targetItemUI.Index+1)/dragEndContainer.rowNumber)
                     {
-                        if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+10)&&check(targetItemUI.Index+11))
+                        if(check(targetItemUI.Index)&&check(targetItemUI.Index+1)&&check(targetItemUI.Index+dragEndContainer.rowNumber)&&check(targetItemUI.Index+dragEndContainer.rowNumber+1))
                         {
                             SwapWithTarget(targetItemUI.Index);
                             return;
@@ -230,18 +230,18 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
             dragBeginContainer.itemUIs[indexD+2].indexOfDataInBox=indexD;
             dragBeginContainer.itemUIs[indexD+3].indexOfDataInBox=indexD;
             dragBeginContainer.itemUIs[indexD+4].indexOfDataInBox=indexD;
-            dragBeginContainer.itemUIs[indexD+10].indexOfDataInBox=indexD;
-            dragBeginContainer.itemUIs[indexD+11].indexOfDataInBox=indexD;
-            dragBeginContainer.itemUIs[indexD+12].indexOfDataInBox=indexD;
-            dragBeginContainer.itemUIs[indexD+13].indexOfDataInBox=indexD;
-            dragBeginContainer.itemUIs[indexD+14].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+1].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+2].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+3].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+4].indexOfDataInBox=indexD;
         }
         else if(size==4)
         {
             dragBeginContainer.itemUIs[indexD].indexOfDataInBox=indexD;
             dragBeginContainer.itemUIs[indexD+1].indexOfDataInBox=indexD;
-            dragBeginContainer.itemUIs[indexD+10].indexOfDataInBox=indexD;
-            dragBeginContainer.itemUIs[indexD+11].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber].indexOfDataInBox=indexD;
+            dragBeginContainer.itemUIs[indexD+dragBeginContainer.rowNumber+1].indexOfDataInBox=indexD;
         }
         else if(size==2)
         {

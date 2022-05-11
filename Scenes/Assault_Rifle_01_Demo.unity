@@ -1028,7 +1028,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.77941173, b: 0.44852942, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 0.8
   m_Range: 50
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7699,7 +7699,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.65
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -15097,7 +15097,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.63235295, g: 0.78701824, b: 1, a: 1}
-  m_Intensity: 1.25
+  m_Intensity: 1
   m_Range: 500
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -15924,7 +15924,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Menu
+  playerMoney: 500000
   SettingUI: {fileID: 0}
+  CanvasInventory: {fileID: 0}
+  MainMenu: {fileID: 0}
   HitFeedbackUI: {fileID: 0}
   Player: {fileID: 0}
 --- !u!4 &1669223972
