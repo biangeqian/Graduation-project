@@ -14,6 +14,7 @@ public class CharacterData_SO : ScriptableObject
     //public int baseDefence;
     //当前防御
     public int currentDefence;
+    public float currentPower;
 
     //[Header("Kill")]
     //public int killPoint;

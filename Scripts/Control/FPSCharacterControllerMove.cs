@@ -9,12 +9,16 @@ public class FPSCharacterControllerMove : MonoBehaviour
     private Animator characterAnimator;
     private Transform characterTransform;
     private GameObject inventory;
+    private CharacterStats playerCharacterStats;
 
     [Header("Property")]
     private Vector3 moveDirection;
     public float runSpeed;
     public float walkSpeed;
     public float crouchSpeed;
+    public float powerRecoverSpeed=10f;
+    public float runPowerCostSpeed=20f;
+    public float jumpPowerCost=7f;
     public float Gravity=9.8f;
     public float JumpHeight;
     public float CrouchHeight=1f;//下蹲高度
@@ -32,10 +36,14 @@ public class FPSCharacterControllerMove : MonoBehaviour
     public bool _Run;
     public bool _Walk;
 
-    private void Start() 
+    private void Awake() 
     {
         GameManager.Instance.Player=gameObject;
+    }
+    private void Start() 
+    {
         inventory=GameManager.Instance.CanvasInventory.gameObject;
+        playerCharacterStats=GetComponent<CharacterStats>();
         //隐藏鼠标
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -81,7 +89,11 @@ public class FPSCharacterControllerMove : MonoBehaviour
                 }
                 else
                 {
-                    moveDirection.y=JumpHeight;
+                    if(playerCharacterStats.CurrentPower>0)
+                    {
+                        moveDirection.y=JumpHeight;
+                        playerCharacterStats.CurrentPower=Mathf.Max(playerCharacterStats.CurrentPower-jumpPowerCost,0f);
+                    }   
                 }
             }
             if(Input.GetKeyDown(KeyCode.C)&&GameManager.Instance.CanvasStack.Count==0)
@@ -90,7 +102,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
                 if(!CrouchBlock) StartCoroutine(DoCrouch(targetHeight));
                 isCrouched=!isCrouched; 
             }
-            if(Input.GetKeyDown(KeyCode.LeftShift)&&isCrouched&&GameManager.Instance.CanvasStack.Count==0)
+            if(Input.GetKey(KeyCode.LeftShift)&&isCrouched&&GameManager.Instance.CanvasStack.Count==0)
             {
                 if(!CrouchBlock) StartCoroutine(DoCrouch(originHeight));
                 isCrouched=!isCrouched;
@@ -103,7 +115,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
         }
         else
         {
-            currentSpeed=(Input.GetKey(KeyCode.LeftShift)&&vertical>0)?runSpeed:walkSpeed;
+            currentSpeed=(Input.GetKey(KeyCode.LeftShift)&&vertical>0f&&playerCharacterStats.CurrentPower>0)?runSpeed:walkSpeed;
         }  
         moveDirection.y-=Gravity*Time.deltaTime;
         characterController.Move(moveDirection*currentSpeed*Time.deltaTime);
@@ -125,6 +137,24 @@ public class FPSCharacterControllerMove : MonoBehaviour
                 GameManager.Instance.CanvasStack.Push(inventory);
                 inventory.GetComponent<CanvasInventory>().setBattleModel();
             }
+        }
+        //奔跑消耗体力
+        if(_Run)
+        {
+            playerCharacterStats.CurrentPower=Mathf.Max(playerCharacterStats.CurrentPower-runPowerCostSpeed*Time.deltaTime,0f);
+        }
+        //体力随时间恢复
+        if(playerCharacterStats.CurrentPower<100)
+        {
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+
+            }
+            else
+            {
+                playerCharacterStats.CurrentPower=Mathf.Min(playerCharacterStats.CurrentPower+powerRecoverSpeed*Time.deltaTime,100f);
+            }   
+            
         }
     }
     private IEnumerator DoCrouch(float target)

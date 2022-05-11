@@ -47,6 +47,11 @@ public class CharacterStats : MonoBehaviour
         get { if (characterData != null) return characterData.currentDefence; else return 0; }
         set { characterData.currentDefence = value; }
     }
+    public float CurrentPower
+    {
+        get { if (characterData != null) return characterData.currentPower; else return 0; }
+        set { characterData.currentPower = value; }
+    }
     #endregion
 
     #region Character Combat
