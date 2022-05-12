@@ -28,7 +28,6 @@ public class Canvas_death : MonoBehaviour
     void quit()
     {
         UnityEngine.Debug.Log("退出游戏");
-        //编辑器模式下不生效
-        Application.Quit();
+        GameManager.Instance.quitGame();
     }
 }

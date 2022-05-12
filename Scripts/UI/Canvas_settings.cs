@@ -46,6 +46,6 @@ public class Canvas_settings : MonoBehaviour
     }
     void quit() 
     {
-        Application.Quit();
+        GameManager.Instance.quitGame();
     }
 }

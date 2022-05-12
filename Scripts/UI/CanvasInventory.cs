@@ -52,4 +52,8 @@ public class CanvasInventory : MonoBehaviour
             GameManager.Instance.MainMenu.SetActive(true);
         }
     }
+    public void updateMoney()
+    {
+        Money.text="₽  "+GameManager.Instance.playerMoney.ToString();
+    }
 }

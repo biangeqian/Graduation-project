@@ -220,10 +220,10 @@ public class EnemyController : MonoBehaviour
                 //agent.enabled = false;//会导致空引用
                 agent.isStopped = true;
                 agent.radius = 0;
-                //死亡后延迟两秒销毁
-                Destroy(gameObject, 2f);
                 //留下一个盒子
                 
+                //死亡后延迟两秒销毁
+                Destroy(gameObject, 2f);
                 break;
         }
     }

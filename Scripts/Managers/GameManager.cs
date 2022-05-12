@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject HitFeedbackUI;
     [HideInInspector]
     public GameObject Player;
+    public GameObject dropBox;
     public Stack<GameObject> CanvasStack=new Stack<GameObject>();
 
     void Update() 
@@ -72,5 +73,11 @@ public class GameManager : Singleton<GameManager>
             GameObject canvas=CanvasStack.Pop();
             canvas.SetActive(false);
         }
+    }
+    public void quitGame()
+    {
+        InventoryManager.Instance.SaveData();
+        //编辑器模式下不生效
+        Application.Quit();
     }
 }

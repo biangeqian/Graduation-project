@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     Button shootBtn;
     Button settingBtn;
     Button escapeBtn;
+    Button remakeBtn;
     public GameObject canvas_maps;
     public GameObject canvas_market;
     private GameObject canvas_settings;
@@ -24,6 +25,7 @@ public class MainMenu : MonoBehaviour
         shootBtn=transform.GetChild(4).GetComponent<Button>();
         settingBtn=transform.GetChild(5).GetComponent<Button>();
         escapeBtn=transform.GetChild(6).GetComponent<Button>();
+        remakeBtn=transform.GetChild(7).GetComponent<Button>();
 
         startBtn.onClick.AddListener(StartGame);
         houseBtn.onClick.AddListener(GoHouse);
@@ -31,6 +33,7 @@ public class MainMenu : MonoBehaviour
         shootBtn.onClick.AddListener(GoShooting);
         settingBtn.onClick.AddListener(GoSetting);
         escapeBtn.onClick.AddListener(Quit);
+        remakeBtn.onClick.AddListener(Remake);
     }
     private void Start() 
     {
@@ -40,7 +43,7 @@ public class MainMenu : MonoBehaviour
     }
     void StartGame()
     {
-        UnityEngine.Debug.Log("开始游戏");
+        //UnityEngine.Debug.Log("开始游戏");
         canvas_maps.SetActive(true);
         gameObject.SetActive(false);
         GameManager.Instance.cleanStack();
@@ -48,7 +51,7 @@ public class MainMenu : MonoBehaviour
     }
     void GoHouse()
     {
-        UnityEngine.Debug.Log("打开仓库");
+        //UnityEngine.Debug.Log("打开仓库");
         canvas_inventory.SetActive(true);
         gameObject.SetActive(false);
         GameManager.Instance.cleanStack();
@@ -56,7 +59,7 @@ public class MainMenu : MonoBehaviour
     }
     void GoMarket()
     {
-        UnityEngine.Debug.Log("打开市场");
+        //UnityEngine.Debug.Log("打开市场");
         canvas_market.SetActive(true);
         gameObject.SetActive(false);
         GameManager.Instance.cleanStack();
@@ -64,7 +67,7 @@ public class MainMenu : MonoBehaviour
     }
     void GoShooting()
     {
-        UnityEngine.Debug.Log("打开靶场");
+        //UnityEngine.Debug.Log("打开靶场");
         GameManager.Instance.cleanStack();
         SceneManager.LoadSceneAsync("Assault_Rifle_01_Demo");
     }
@@ -72,15 +75,18 @@ public class MainMenu : MonoBehaviour
     {
         if(canvas_settings.activeSelf==false)
         {
-            UnityEngine.Debug.Log("打开设置");
+            //UnityEngine.Debug.Log("打开设置");
             canvas_settings.SetActive(true);
             GameManager.Instance.CanvasStack.Push(canvas_settings);
         }
     }
     void Quit()
     {
-        UnityEngine.Debug.Log("退出游戏");
-        //编辑器模式下不生效
-        Application.Quit();
+        //UnityEngine.Debug.Log("退出游戏");
+        GameManager.Instance.quitGame();
+    }
+    void Remake()
+    {
+        GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>().Remake();
     }
 }

@@ -32,9 +32,7 @@ public class InventoryManager : Singleton<InventoryManager>
     // Start is called before the first frame update
     void Start()
     {
-        
-        
-        
+        LoadData();
     }
 
     // Update is called once per frame
@@ -66,4 +64,31 @@ public class InventoryManager : Singleton<InventoryManager>
         return 0;
     }
     #endregion
+    public void SaveData()
+    {
+        PlayerPrefs.SetInt("money",GameManager.Instance.playerMoney);
+        SaveManager.Instance.Save(warehousePlayer,warehousePlayer.name);
+        SaveManager.Instance.Save(bagPlayer,bagPlayer.name);
+        SaveManager.Instance.Save(safeBagPlayer,safeBagPlayer.name);
+    }
+    public void LoadData()
+    {
+        GameManager.Instance.playerMoney=PlayerPrefs.GetInt("money");
+        GetComponent<CanvasInventory>().updateMoney();
+        SaveManager.Instance.Load(warehousePlayer,warehousePlayer.name);
+        SaveManager.Instance.Load(bagPlayer,bagPlayer.name);
+        SaveManager.Instance.Load(safeBagPlayer,safeBagPlayer.name);
+        warehouseContainer.loadData(warehousePlayer);
+        bagContainer.loadData(bagPlayer);
+        safeBagContainer.loadData(safeBagPlayer);
+    }
+    public void Remake()
+    {
+        GameManager.Instance.playerMoney=500000;
+        warehousePlayer=Instantiate(warehouseOrig);
+        bagPlayer=Instantiate(bagOrig);
+        safeBagPlayer=Instantiate(safeBagOrig);
+        SaveData();
+        LoadData();
+    }
 }

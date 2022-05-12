@@ -219,7 +219,7 @@ public class ContainerUI : MonoBehaviour
     }
     public void loadData(InventoryData_SO data)
     {
-        UnityEngine.Debug.Log(data.list.Count);
+        //UnityEngine.Debug.Log(data.list.Count);
         for(int i=0;i<data.list.Count;i++)
         {
             

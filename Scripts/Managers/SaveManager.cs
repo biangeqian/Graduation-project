@@ -5,27 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : Singleton<SaveManager>
 {
-    //这个key随便写什么都行
-    string sceneName="level";
-    public string SceneName { get { return PlayerPrefs.GetString(sceneName); } }
-
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this);
     }
     public void Save(Object data,string key)
     {
         var jsonData = JsonUtility.ToJson(data,true);
         PlayerPrefs.SetString(key, jsonData);
-        PlayerPrefs.SetString(sceneName, SceneManager.GetActiveScene().name);
         PlayerPrefs.Save();
+        UnityEngine.Debug.Log("保存"+key);
     }
     public void Load(Object data, string key)
     {
         if (PlayerPrefs.HasKey(key))
         {
             JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString(key), data);
+            UnityEngine.Debug.Log("读取"+key);
         }
     }
     public void SavePlayerData()
@@ -46,14 +42,6 @@ public class SaveManager : Singleton<SaveManager>
     // Update is called once per frame
     void Update()
     {
-    //     if (Keyboard.current.escapeKey.wasPressedThisFrame)
-    //     {
-    //         //保存数据
-    //         SaveManager.Instance.SavePlayerData();
-    //         InventoryManager.Instance.SaveData();
-    //         QuestManager.Instance.SaveQuestManager();
-            
-    //         SceneController.Instance.TransitionToMenu();
-    //     }
+    
     }
 }
