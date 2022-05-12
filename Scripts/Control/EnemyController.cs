@@ -41,6 +41,7 @@ public class EnemyController : MonoBehaviour
     bool isFollow;
     bool isDead;
     bool playerDead;//初始默认false
+    bool isDrop;
 
     void Awake()
     {
@@ -86,7 +87,6 @@ public class EnemyController : MonoBehaviour
         //     QuestManager.Instance.UpdateQuestProgress(this.name,1);
         // }
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -221,9 +221,15 @@ public class EnemyController : MonoBehaviour
                 agent.isStopped = true;
                 agent.radius = 0;
                 //留下一个盒子
-                
+                if(!isDrop)
+                {
+                    isDrop=true;
+                    Instantiate(GameManager.Instance.dropBox, 
+                    transform.position+Vector3.up*0.5f, 
+                    transform.rotation);
+                }
                 //死亡后延迟两秒销毁
-                Destroy(gameObject, 2f);
+                Destroy(gameObject, 1f);
                 break;
         }
     }

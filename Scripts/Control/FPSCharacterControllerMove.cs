@@ -6,6 +6,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
 {
     [Header("Components")]
     public GameObject deathCanvas;
+    public GameObject rayPoint;
     private CharacterController characterController;
     private Animator characterAnimator;
     private Transform characterTransform;
@@ -65,6 +66,8 @@ public class FPSCharacterControllerMove : MonoBehaviour
             }
             return;
         }
+
+        rayCheck();
         //isGrounded只记录最后一次调用Move后的位置
         if(characterController.isGrounded)
         {
@@ -183,5 +186,20 @@ public class FPSCharacterControllerMove : MonoBehaviour
     {
         characterAnimator.SetBool("Run",_Run);
         characterAnimator.SetBool("Walk",_Walk);
+    }
+    private bool rayCheck()
+    {
+        //m_ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Ray ray=new Ray(rayPoint.transform.position,rayPoint.transform.forward);
+        RaycastHit hit;
+        UnityEngine.Debug.DrawRay(ray.origin,rayPoint.transform.forward,Color.red);
+        if(Physics.Raycast(ray,out hit,1f))
+        {
+            if(hit.collider.gameObject.CompareTag("DropBox"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
