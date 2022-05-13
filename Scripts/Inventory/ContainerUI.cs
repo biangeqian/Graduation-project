@@ -62,7 +62,7 @@ public class ContainerUI : MonoBehaviour
                 if(i/rowNumber==(i+4)/rowNumber)
                 {
                     if(check(i)&&check(i+1)&&check(i+2)&&check(i+3)&&check(i+4)
-                    &&check(i+10)&&check(i+11)&&check(i+12)&&check(i+13)&&check(i+14))
+                    &&check(i+rowNumber)&&check(i+rowNumber+1)&&check(i+rowNumber+2)&&check(i+rowNumber+3)&&check(i+rowNumber+4))
                     {
                         UnityEngine.Debug.Log("在第"+i+"格添加10格物品");
                         //Data
@@ -73,11 +73,11 @@ public class ContainerUI : MonoBehaviour
                         itemUIs[i+2].indexOfDataInBox=i;
                         itemUIs[i+3].indexOfDataInBox=i;
                         itemUIs[i+4].indexOfDataInBox=i;
-                        itemUIs[i+10].indexOfDataInBox=i;
-                        itemUIs[i+11].indexOfDataInBox=i;
-                        itemUIs[i+12].indexOfDataInBox=i;
-                        itemUIs[i+13].indexOfDataInBox=i;
-                        itemUIs[i+14].indexOfDataInBox=i;
+                        itemUIs[i+rowNumber].indexOfDataInBox=i;
+                        itemUIs[i+rowNumber+1].indexOfDataInBox=i;
+                        itemUIs[i+rowNumber+2].indexOfDataInBox=i;
+                        itemUIs[i+rowNumber+3].indexOfDataInBox=i;
+                        itemUIs[i+rowNumber+4].indexOfDataInBox=i;
 
                         itemUIs[i].image.rectTransform.sizeDelta = new Vector2(320, 128);
                         itemUIs[i].image.sprite=itemData.image;
@@ -95,7 +95,7 @@ public class ContainerUI : MonoBehaviour
             {
                 if(i/rowNumber==(i+1)/rowNumber)
                 {
-                    if(check(i)&&check(i+1)&&check(i+10)&&check(i+11))
+                    if(check(i)&&check(i+1)&&check(i+rowNumber)&&check(i+rowNumber+1))
                     {
                         UnityEngine.Debug.Log("在第"+i+"格添加4格物品");
                         //Data
@@ -103,8 +103,8 @@ public class ContainerUI : MonoBehaviour
                         //UI
                         itemUIs[i].indexOfDataInBox=i;
                         itemUIs[i+1].indexOfDataInBox=i;
-                        itemUIs[i+10].indexOfDataInBox=i;
-                        itemUIs[i+11].indexOfDataInBox=i;
+                        itemUIs[i+rowNumber].indexOfDataInBox=i;
+                        itemUIs[i+rowNumber+1].indexOfDataInBox=i;
                         
                         itemUIs[i].image.rectTransform.sizeDelta = new Vector2(128, 128);
                         itemUIs[i].image.sprite=itemData.image;
@@ -187,8 +187,8 @@ public class ContainerUI : MonoBehaviour
             //UI
             itemUIs[index].indexOfDataInBox=-1;
             itemUIs[index+1].indexOfDataInBox=-1;
-            itemUIs[index+10].indexOfDataInBox=-1;
-            itemUIs[index+11].indexOfDataInBox=-1;
+            itemUIs[index+rowNumber].indexOfDataInBox=-1;
+            itemUIs[index+rowNumber+1].indexOfDataInBox=-1;
 
             itemUIs[index].image.rectTransform.sizeDelta = new Vector2(64, 64);
             itemUIs[index].image.sprite=null;
@@ -205,11 +205,11 @@ public class ContainerUI : MonoBehaviour
             itemUIs[index+2].indexOfDataInBox=-1;
             itemUIs[index+3].indexOfDataInBox=-1;
             itemUIs[index+4].indexOfDataInBox=-1;
-            itemUIs[index+10].indexOfDataInBox=-1;
-            itemUIs[index+11].indexOfDataInBox=-1;
-            itemUIs[index+12].indexOfDataInBox=-1;
-            itemUIs[index+13].indexOfDataInBox=-1;
-            itemUIs[index+14].indexOfDataInBox=-1;
+            itemUIs[index+rowNumber].indexOfDataInBox=-1;
+            itemUIs[index+rowNumber+1].indexOfDataInBox=-1;
+            itemUIs[index+rowNumber+2].indexOfDataInBox=-1;
+            itemUIs[index+rowNumber+3].indexOfDataInBox=-1;
+            itemUIs[index+rowNumber+4].indexOfDataInBox=-1;
 
             itemUIs[index].image.rectTransform.sizeDelta = new Vector2(64, 64);
             itemUIs[index].image.sprite=null;
@@ -257,8 +257,8 @@ public class ContainerUI : MonoBehaviour
                     //UI
                     itemUIs[i].indexOfDataInBox=i;
                     itemUIs[i+1].indexOfDataInBox=i;
-                    itemUIs[i+10].indexOfDataInBox=i;
-                    itemUIs[i+11].indexOfDataInBox=i;
+                    itemUIs[i+rowNumber].indexOfDataInBox=i;
+                    itemUIs[i+rowNumber+1].indexOfDataInBox=i;
                     
                     itemUIs[i].image.rectTransform.sizeDelta = new Vector2(128, 128);
                     itemUIs[i].image.sprite=itemData.image;
@@ -273,11 +273,11 @@ public class ContainerUI : MonoBehaviour
                     itemUIs[i+2].indexOfDataInBox=i;
                     itemUIs[i+3].indexOfDataInBox=i;
                     itemUIs[i+4].indexOfDataInBox=i;
-                    itemUIs[i+10].indexOfDataInBox=i;
-                    itemUIs[i+11].indexOfDataInBox=i;
-                    itemUIs[i+12].indexOfDataInBox=i;
-                    itemUIs[i+13].indexOfDataInBox=i;
-                    itemUIs[i+14].indexOfDataInBox=i;
+                    itemUIs[i+rowNumber].indexOfDataInBox=i;
+                    itemUIs[i+rowNumber+1].indexOfDataInBox=i;
+                    itemUIs[i+rowNumber+2].indexOfDataInBox=i;
+                    itemUIs[i+rowNumber+3].indexOfDataInBox=i;
+                    itemUIs[i+rowNumber+4].indexOfDataInBox=i;
 
                     itemUIs[i].image.rectTransform.sizeDelta = new Vector2(320, 128);
                     itemUIs[i].image.sprite=itemData.image;

@@ -12,12 +12,15 @@ public class CanvasInventory : MonoBehaviour
     public GameObject inventory;
     public GameObject bag;
     public GameObject safeBag;
+    public GameObject dropBox;
     private bool isReturnMainMenu = true;
     private void OnEnable() 
     {
         inventory.SetActive(true);
         bag.SetActive(true);
         safeBag.SetActive(true);
+        dropBox.SetActive(false);
+        returnMenu.gameObject.SetActive(true);
         isReturnMainMenu = true;
         Money.text="₽  "+GameManager.Instance.playerMoney.ToString();
     }
@@ -30,6 +33,12 @@ public class CanvasInventory : MonoBehaviour
     public void setBattleModel()
     {
         inventory.SetActive(false);
+        isReturnMainMenu = false;
+    }
+    public void setDropBoxModel()
+    {
+        inventory.SetActive(false);
+        dropBox.SetActive(true);
         isReturnMainMenu = false;
     }
     // Start is called before the first frame update

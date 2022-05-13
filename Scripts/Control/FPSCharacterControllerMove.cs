@@ -6,7 +6,8 @@ public class FPSCharacterControllerMove : MonoBehaviour
 {
     [Header("Components")]
     public GameObject deathCanvas;
-    public GameObject rayPoint;
+    public GameObject openDropBoxUI;
+    public float rayDistance=3f;
     private CharacterController characterController;
     private Animator characterAnimator;
     private Transform characterTransform;
@@ -66,8 +67,6 @@ public class FPSCharacterControllerMove : MonoBehaviour
             }
             return;
         }
-
-        rayCheck();
         //isGrounded只记录最后一次调用Move后的位置
         if(characterController.isGrounded)
         {
@@ -152,6 +151,23 @@ public class FPSCharacterControllerMove : MonoBehaviour
                 inventory.GetComponent<CanvasInventory>().setBattleModel();
             }
         }
+        if(rayCheck()&&GameManager.Instance.CanvasStack.Count==0)
+        {
+            //显示F
+            openDropBoxUI.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                var canvas_inventory=GameManager.Instance.CanvasInventory;
+                canvas_inventory.SetActive(true);
+                canvas_inventory.GetComponent<CanvasInventory>().setDropBoxModel();
+                GameManager.Instance.CanvasStack.Push(canvas_inventory);
+            }
+        }
+        else
+        {
+            //隐藏F
+            openDropBoxUI.SetActive(false);
+        }
         //奔跑消耗体力
         if(_Run)
         {
@@ -189,12 +205,13 @@ public class FPSCharacterControllerMove : MonoBehaviour
     }
     private bool rayCheck()
     {
-        //m_ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        Ray ray=new Ray(rayPoint.transform.position,rayPoint.transform.forward);
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 100));
+        //Ray ray=new Ray(rayPoint.transform.position,rayPoint.transform.forward);
         RaycastHit hit;
-        UnityEngine.Debug.DrawRay(ray.origin,rayPoint.transform.forward,Color.red);
-        if(Physics.Raycast(ray,out hit,1f))
+        UnityEngine.Debug.DrawRay(ray.origin,ray.direction*rayDistance,Color.red);
+        if(Physics.Raycast(ray,out hit,rayDistance))
         {
+            UnityEngine.Debug.Log(hit.collider.gameObject.tag);
             if(hit.collider.gameObject.CompareTag("DropBox"))
             {
                 return true;
