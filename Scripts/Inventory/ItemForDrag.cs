@@ -44,6 +44,11 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
                 dragBeginList=InventoryManager.Instance.safeBagPlayer.list;
                 dragBeginContainer=InventoryManager.Instance.safeBagContainer;
             }
+            else if(dragBeginModel==4)
+            {
+                dragBeginList=GameManager.Instance.curDropData.list;
+                dragBeginContainer=InventoryManager.Instance.dropBoxContainer;
+            }
             
             //记录原始数据
             indexD=GetComponentInParent<ItemUI>().indexOfDataInBox;
@@ -118,6 +123,11 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
             {
                 dragEndList=InventoryManager.Instance.safeBagPlayer.list;
                 dragEndContainer=InventoryManager.Instance.safeBagContainer;
+            }
+            else if(dragEndModel==4)
+            {
+                dragEndList=GameManager.Instance.curDropData.list;
+                dragEndContainer=InventoryManager.Instance.dropBoxContainer;
             }
             else
             {

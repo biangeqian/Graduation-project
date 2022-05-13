@@ -535,6 +535,7 @@ MonoBehaviour:
   isGuard: 0
   attackTarget: {fileID: 0}
   lookAtTime: 4
+  drops: {fileID: 11400000, guid: 992efab14ad2921448b83a283baa711d, type: 2}
   firePrefeb: {fileID: 0}
   firePoint: {fileID: 0}
   patrolRange: 5

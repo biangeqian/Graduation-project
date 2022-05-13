@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject MainMenu;
     [HideInInspector]
     public GameObject HitFeedbackUI;
+    public InventoryData_SO curDropData;
     [HideInInspector]
     public GameObject Player;
     public GameObject dropBox;

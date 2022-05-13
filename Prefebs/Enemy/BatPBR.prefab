@@ -1163,7 +1163,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6815859141943008184}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.284113, y: -4.821863, z: 2.2594764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1259,6 +1259,7 @@ MonoBehaviour:
   isGuard: 0
   attackTarget: {fileID: 0}
   lookAtTime: 4
+  drops: {fileID: 11400000, guid: 992efab14ad2921448b83a283baa711d, type: 2}
   firePrefeb: {fileID: 1343504842343394, guid: 491de6b713e639847830438fc8d3fc28, type: 3}
   firePoint: {fileID: 2291358771049767336}
   patrolRange: 5

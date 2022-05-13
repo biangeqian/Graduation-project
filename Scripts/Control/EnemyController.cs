@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     private float speed;//记录原有速度
     public GameObject attackTarget;//攻击目标
     public float lookAtTime;//停留时间
+    public InventoryData_SO drops;
     [Header("Fire")]
     public GameObject firePrefeb;
     public GameObject firePoint;
@@ -224,9 +225,10 @@ public class EnemyController : MonoBehaviour
                 if(!isDrop)
                 {
                     isDrop=true;
-                    Instantiate(GameManager.Instance.dropBox, 
+                    var box=Instantiate(GameManager.Instance.dropBox, 
                     transform.position+Vector3.up*0.5f, 
                     transform.rotation);
+                    box.GetComponent<DropBox>().dropBoxCur=Instantiate(drops);
                 }
                 //死亡后延迟两秒销毁
                 Destroy(gameObject, 1f);

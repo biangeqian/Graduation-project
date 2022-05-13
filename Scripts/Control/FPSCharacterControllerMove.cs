@@ -13,6 +13,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
     private Transform characterTransform;
     private GameObject inventory;
     private CharacterStats playerCharacterStats;
+    private InventoryData_SO dropData;
 
     [Header("Property")]
     private Vector3 moveDirection;
@@ -64,6 +65,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
                 GameManager.Instance.cleanStack();
                 deathCanvas.SetActive(true);
                 GameManager.Instance.CanvasStack.Push(deathCanvas);
+                GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>().cleanBag();
             }
             return;
         }
@@ -160,6 +162,7 @@ public class FPSCharacterControllerMove : MonoBehaviour
                 var canvas_inventory=GameManager.Instance.CanvasInventory;
                 canvas_inventory.SetActive(true);
                 canvas_inventory.GetComponent<CanvasInventory>().setDropBoxModel();
+                canvas_inventory.GetComponent<InventoryManager>().dropBoxContainer.loadData(GameManager.Instance.curDropData);
                 GameManager.Instance.CanvasStack.Push(canvas_inventory);
             }
         }
@@ -211,9 +214,10 @@ public class FPSCharacterControllerMove : MonoBehaviour
         UnityEngine.Debug.DrawRay(ray.origin,ray.direction*rayDistance,Color.red);
         if(Physics.Raycast(ray,out hit,rayDistance))
         {
-            UnityEngine.Debug.Log(hit.collider.gameObject.tag);
+            //UnityEngine.Debug.Log(hit.collider.gameObject.tag);
             if(hit.collider.gameObject.CompareTag("DropBox"))
             {
+                GameManager.Instance.curDropData=hit.collider.gameObject.GetComponentInParent<DropBox>().dropBoxCur;
                 return true;
             }
         }

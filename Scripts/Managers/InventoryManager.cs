@@ -25,6 +25,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public ContainerUI warehouseContainer;
     public ContainerUI bagContainer;
     public ContainerUI safeBagContainer;
+    public ContainerUI dropBoxContainer;
 
     [Header("Drag")]
     public GameObject dragArea;
@@ -46,7 +47,8 @@ public class InventoryManager : Singleton<InventoryManager>
         RectTransform t1=warehouseContainer.transform as RectTransform;
         RectTransform t2=bagContainer.transform as RectTransform;
         RectTransform t3=safeBagContainer.transform as RectTransform;
-        if(RectTransformUtility.RectangleContainsScreenPoint(t1,position))
+        RectTransform t4=dropBoxContainer.transform as RectTransform;
+        if(RectTransformUtility.RectangleContainsScreenPoint(t1,position)&&warehouseContainer.gameObject.activeSelf)
         {
             UnityEngine.Debug.Log("仓库区域");
             return 1;
@@ -60,6 +62,11 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             UnityEngine.Debug.Log("安全箱区域");
             return 3;
+        }
+        else if(RectTransformUtility.RectangleContainsScreenPoint(t4,position)&&dropBoxContainer.gameObject.activeSelf)
+        {
+            UnityEngine.Debug.Log("战利品箱区域");
+            return 4;
         }
         return 0;
     }
@@ -90,5 +97,10 @@ public class InventoryManager : Singleton<InventoryManager>
         safeBagPlayer=Instantiate(safeBagOrig);
         SaveData();
         LoadData();
+    }
+    public void cleanBag()
+    {
+        bagPlayer=Instantiate(bagOrig);
+        bagContainer.loadData(bagPlayer);
     }
 }

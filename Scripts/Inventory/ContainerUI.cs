@@ -220,10 +220,10 @@ public class ContainerUI : MonoBehaviour
     public void loadData(InventoryData_SO data)
     {
         //UnityEngine.Debug.Log(data.list.Count);
-        for(int i=0;i<data.list.Count;i++)
+        for(int i=data.list.Count-1;i>=0;i--)
         {
-            
-            if(data.list[i].itemData)
+            //list[i]被设置为null的时候访问list[i].itemData会报错
+            if(data.list[i]!=null&&data.list[i].itemData!=null)
             {
                 ItemData_SO itemData=data.list[i].itemData;
                 if(itemData.boxSize==1)
@@ -284,6 +284,16 @@ public class ContainerUI : MonoBehaviour
                     itemUIs[i].image.color=new Color(255,255,255,1);
                     itemUIs[i].upText.text="";
                 }
+            }
+            else
+            {
+                //UI
+                itemUIs[i].indexOfDataInBox=-1;
+                itemUIs[i].image.rectTransform.sizeDelta = new Vector2(64, 64);
+                itemUIs[i].image.sprite=null;
+                itemUIs[i].image.color=new Color(255,255,255,0);
+                itemUIs[i].upText.text="";
+                itemUIs[i].bottomText.text="";
             }
         }
     }
