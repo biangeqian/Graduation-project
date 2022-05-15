@@ -153,6 +153,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	private bool isWalking;
 	//Check if inspecting weapon
 	private bool isInspecting;
+	private bool autoShoot=true;
 
 	//How much ammo is currently left
 	private int currentAmmo;
@@ -204,6 +205,9 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	public Text currentWeaponText;
 	public Text currentAmmoText;
 	public Text totalAmmoText;
+	public GameObject auto;
+	public GameObject onetap;
+	public GameObject tipsText;
 
 	[System.Serializable]
 	public class prefabs
@@ -680,6 +684,10 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 				anim.Play("GrenadeThrow", 0, 0.0f);
 				holstered=false;
 			}
+			else
+			{
+				tipsText.GetComponent<TipsText>().setText("手雷不足");
+			}
 		}
 
 		//If out of ammo
@@ -706,7 +714,8 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			
 		//AUtomatic fire
 		//Left click hold 
-		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning&&!holstered&&!waitAnim) 
+		if ((autoShoot&&Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning&&!holstered&&!waitAnim)
+		||!autoShoot&&Input.GetMouseButtonDown (0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning&&!holstered&&!waitAnim) 
 		{
 			//Shoot automatic
 			if (Time.time - lastFired > 1 / fireRate) 
@@ -870,6 +879,10 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			{
 				Reload (ammoAfterReload);
 			}
+			else
+			{
+				tipsText.GetComponent<TipsText>().setText("弹药不足");
+			}
 		}
 		//治疗
 		if (Input.GetKeyDown (KeyCode.Alpha1)) 
@@ -878,8 +891,27 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			{
 				GameManager.Instance.Player.GetComponent<CharacterStats>().ApplyHealth(10);
 			}
+			else
+			{
+				tipsText.GetComponent<TipsText>().setText("医疗包不足");
+			}
 		}
-
+		if (Input.GetKeyDown (KeyCode.B)) 
+		{
+			autoShoot=!autoShoot;
+			if(autoShoot)
+			{
+				auto.SetActive(true);
+				onetap.SetActive(false);
+				tipsText.GetComponent<TipsText>().setText("已切换为连发模式");
+			}
+			else
+			{
+				auto.SetActive(false);
+				onetap.SetActive(true);
+				tipsText.GetComponent<TipsText>().setText("已切换为单发模式");
+			}
+		}
 		//Walking when pressing down WASD keys
 		// if (Input.GetKey (KeyCode.W) && !isRunning || 
 		// 	Input.GetKey (KeyCode.A) && !isRunning || 

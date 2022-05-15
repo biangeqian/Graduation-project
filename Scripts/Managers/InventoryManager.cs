@@ -34,6 +34,7 @@ public class InventoryManager : Singleton<InventoryManager>
     void Start()
     {
         LoadData();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
