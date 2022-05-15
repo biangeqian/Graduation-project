@@ -52,6 +52,7 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
             
             //记录原始数据
             indexD=GetComponentInParent<ItemUI>().indexOfDataInBox;
+            UnityEngine.Debug.Log(indexD);
             size=dragBeginList[indexD].itemData.boxSize;
             dragItem=dragBeginContainer.itemUIs[indexD].transform.GetChild(0);
 

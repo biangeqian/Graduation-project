@@ -50,22 +50,22 @@ public class InventoryManager : Singleton<InventoryManager>
         RectTransform t4=dropBoxContainer.transform as RectTransform;
         if(RectTransformUtility.RectangleContainsScreenPoint(t1,position)&&warehouseContainer.gameObject.activeSelf)
         {
-            UnityEngine.Debug.Log("仓库区域");
+            //UnityEngine.Debug.Log("仓库区域");
             return 1;
         }
         else if(RectTransformUtility.RectangleContainsScreenPoint(t2,position))
         {
-            UnityEngine.Debug.Log("背包区域");
+            //UnityEngine.Debug.Log("背包区域");
             return 2;
         }
         else if(RectTransformUtility.RectangleContainsScreenPoint(t3,position))
         {
-            UnityEngine.Debug.Log("安全箱区域");
+            //UnityEngine.Debug.Log("安全箱区域");
             return 3;
         }
         else if(RectTransformUtility.RectangleContainsScreenPoint(t4,position)&&dropBoxContainer.gameObject.activeSelf)
         {
-            UnityEngine.Debug.Log("战利品箱区域");
+            //UnityEngine.Debug.Log("战利品箱区域");
             return 4;
         }
         return 0;

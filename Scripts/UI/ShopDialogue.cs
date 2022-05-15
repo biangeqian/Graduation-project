@@ -149,7 +149,7 @@ public class ShopDialogue : MonoBehaviour
     {
         int get=int.Parse(totalValue.text);
         GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>().warehouseContainer.
-        DeleteItem(indexOfData,goodsNum);
+        DeleteItem(indexOfData,goodsNum,GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>().warehousePlayer);
         GameManager.Instance.playerMoney+=get;
         GameManager.Instance.CanvasInventory.GetComponent<CanvasInventory>().Money.text="₽  "+GameManager.Instance.playerMoney.ToString();
         button_sale.gameObject.SetActive(false);

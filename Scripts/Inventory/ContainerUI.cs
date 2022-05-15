@@ -143,9 +143,9 @@ public class ContainerUI : MonoBehaviour
         }
         return number;
     }
-    public void DeleteItem(int index,int number)
+    public void DeleteItem(int index,int number,InventoryData_SO data)
     {
-        var item=InventoryManager.Instance.warehousePlayer.list[index];
+        var item=data.list[index];
         if(item.itemData.boxSize==1)
         {
             if(item.currentStack-number>0)
@@ -156,7 +156,7 @@ public class ContainerUI : MonoBehaviour
             else
             {
                 //Data
-                item=null;
+                data.list[index]=null;
                 //UI
                 itemUIs[index].indexOfDataInBox=-1;
 
@@ -170,7 +170,7 @@ public class ContainerUI : MonoBehaviour
         else if(item.itemData.boxSize==2)
         {
             //Data
-            item=null;
+            data.list[index]=null;
             //UI
             itemUIs[index].indexOfDataInBox=-1;
             itemUIs[index+1].indexOfDataInBox=-1;
@@ -183,7 +183,7 @@ public class ContainerUI : MonoBehaviour
         else if(item.itemData.boxSize==4)
         {
             //Data
-            item=null;
+            data.list[index]=null;
             //UI
             itemUIs[index].indexOfDataInBox=-1;
             itemUIs[index+1].indexOfDataInBox=-1;
@@ -198,7 +198,7 @@ public class ContainerUI : MonoBehaviour
         else if(item.itemData.boxSize==10)
         {
             //Data
-            item=null;
+            data.list[index]=null;
             //UI
             itemUIs[index].indexOfDataInBox=-1;
             itemUIs[index+1].indexOfDataInBox=-1;

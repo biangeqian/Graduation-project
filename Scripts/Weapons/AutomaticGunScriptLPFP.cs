@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AutomaticGunScriptLPFP : MonoBehaviour {
 
@@ -670,12 +671,15 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		//Throw grenade when pressing G key
 		if (Input.GetKeyDown (KeyCode.G) && !isInspecting&&!isReloading&&!waitAnim) 
 		{
-			mainAudioSource.clip = SoundClips.grenadeThrow;
-			mainAudioSource.Play ();
-			StartCoroutine (GrenadeSpawnDelay ());
-			//Play grenade throw animation
-			anim.Play("GrenadeThrow", 0, 0.0f);
-			holstered=false;
+			if(useGrende())
+			{
+				mainAudioSource.clip = SoundClips.grenadeThrow;
+				mainAudioSource.Play ();
+				StartCoroutine (GrenadeSpawnDelay ());
+				//Play grenade throw animation
+				anim.Play("GrenadeThrow", 0, 0.0f);
+				holstered=false;
+			}
 		}
 
 		//If out of ammo
@@ -833,14 +837,14 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		}
 
 		//Toggle weapon holster when E key is pressed
-		if (Input.GetKeyDown (KeyCode.E) &&!holstered &&!waitAnim&&!isInspecting) 
+		if (Input.GetKeyDown (KeyCode.X) &&!holstered &&!waitAnim&&!isInspecting) 
 		{
 			holstered = true;
 
 			mainAudioSource.clip = SoundClips.holsterSound;
 			mainAudioSource.Play();			
 		} 
-		else if (Input.GetKeyDown (KeyCode.E) &&holstered &&!waitAnim&&!isInspecting) 
+		else if (Input.GetKeyDown (KeyCode.X) &&holstered &&!waitAnim&&!isInspecting) 
 		{
 			holstered = false;
 
@@ -861,7 +865,19 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.R) && !isReloading && !isInspecting&&!waitAnim&&!holstered) 
 		{
 			//Reload
-			Reload ();
+			int ammoAfterReload=tryReload();
+			if(ammoAfterReload>currentAmmo)
+			{
+				Reload (ammoAfterReload);
+			}
+		}
+		//治疗
+		if (Input.GetKeyDown (KeyCode.Alpha1)) 
+		{
+			if(useHeal())
+			{
+				GameManager.Instance.Player.GetComponent<CharacterStats>().ApplyHealth(10);
+			}
 		}
 
 		//Walking when pressing down WASD keys
@@ -931,7 +947,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	}
 
 	//Reload
-	private void Reload () {
+	private void Reload (int ammoAfter) {
 		
 		if (outOfAmmo == true) 
 		{
@@ -968,7 +984,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			}
 		}
 		//Restore ammo when reloading
-		currentAmmo = ammo;
+		currentAmmo = ammoAfter;
 		outOfAmmo = false;
 	}
 
@@ -1050,4 +1066,63 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			}
 		}
     }
+	bool useGrende()
+	{
+		if(SceneManager.GetActiveScene().name=="Assault_Rifle_01_Demo") return true;
+		var im=GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>();
+		var list=im.bagPlayer.list;
+		var container=im.bagContainer;
+		for(int i=0;i<list.Count;i++)
+		{
+			if(list[i]!=null&&list[i].itemData!=null&&list[i].itemData.itemName=="Grende")
+			{
+				container.DeleteItem(i,1,im.bagPlayer);
+				return true;
+			}
+		}
+		return false;
+	}
+	bool useHeal()
+	{
+		if(SceneManager.GetActiveScene().name=="Assault_Rifle_01_Demo") return true;
+		var im=GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>();
+		var list=im.bagPlayer.list;
+		var container=im.bagContainer;
+		for(int i=0;i<list.Count;i++)
+		{
+			if(list[i]!=null&&list[i].itemData!=null&&list[i].itemData.itemName=="bigHP")
+			{
+				container.DeleteItem(i,1,im.bagPlayer);
+				return true;
+			}
+		}
+		return false;
+	}
+	int tryReload()
+	{
+		if(SceneManager.GetActiveScene().name=="Assault_Rifle_01_Demo") return ammo;
+		var im=GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>();
+		var list=im.bagPlayer.list;
+		var container=im.bagContainer;
+		int need=ammo-currentAmmo;
+		for(int i=0;i<list.Count;i++)
+		{
+			if(list[i]!=null&&list[i].itemData!=null&&list[i].itemData.itemName=="bigAmmo")
+			{
+				if(list[i].currentStack>need)
+				{
+					list[i].currentStack-=need;
+					container.itemUIs[i].bottomText.text=list[i].currentStack.ToString();
+					return ammo;
+				}
+				else
+				{
+					need-=list[i].currentStack;
+					container.DeleteItem(i,list[i].currentStack,im.bagPlayer);
+					if(need==0) return ammo;
+				}
+			}
+		}
+		return ammo-need;
+	}
 }
