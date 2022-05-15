@@ -9,7 +9,7 @@ public class ItemData_SO : ScriptableObject
     public string descriptionName;
     [TextArea]
     public string descriptionTooltip;
-    public enum itemType{other,ammo,mag,medicine,food,gun,knife};
+    public enum itemType{other,ammo,mag,medicine,food,gun,smallgun,knife,helmet};
     public itemType itemtype;
     public bool isStackable;
     public bool isRotatable;

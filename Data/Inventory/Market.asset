@@ -104,7 +104,7 @@ MonoBehaviour:
     currentValue: 0
     currentUseTimes: 0
     currentWeight: 0
-  - itemData: {fileID: 0}
+  - itemData: {fileID: 11400000, guid: 742f00044fb2b1e4e857654b145c04fb, type: 2}
     currentStack: 0
     currentValue: 0
     currentUseTimes: 0

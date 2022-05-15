@@ -13,12 +13,14 @@ public class CanvasInventory : MonoBehaviour
     public GameObject bag;
     public GameObject safeBag;
     public GameObject dropBox;
+    public GameObject equipment;
     private bool isReturnMainMenu = true;
     private void OnEnable() 
     {
         inventory.SetActive(true);
         bag.SetActive(true);
         safeBag.SetActive(true);
+        equipment.SetActive(true);
         dropBox.SetActive(false);
         returnMenu.gameObject.SetActive(true);
         isReturnMainMenu = true;
@@ -28,6 +30,7 @@ public class CanvasInventory : MonoBehaviour
     {
         bag.SetActive(false);
         safeBag.SetActive(false);
+        equipment.SetActive(false);
         isReturnMainMenu = false;
     }
     public void setBattleModel()

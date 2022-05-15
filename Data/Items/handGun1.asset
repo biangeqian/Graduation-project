@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: handGun1
   descriptionName: "Glock\u624B\u67AA"
   descriptionTooltip: "\u683C\u6D1B\u514B\u624B\u67AA"
-  itemtype: 5
+  itemtype: 6
   isStackable: 0
   isRotatable: 1
   maxStackSize: 0
