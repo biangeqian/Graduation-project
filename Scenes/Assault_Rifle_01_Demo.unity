@@ -10392,7 +10392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2791781459356561442, guid: aea8c358ce83345408d1651220fb800e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.92
+      value: -1.08
       objectReference: {fileID: 0}
     - target: {fileID: 2791781459356561442, guid: aea8c358ce83345408d1651220fb800e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14523,7 +14523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.64, y: -7.64}
+  m_AnchoredPosition: {x: 0.64, y: -6.7}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1519225481
@@ -14560,7 +14560,8 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "WASD\u79FB\u52A8\n\u7A7A\u683C\u8DF3\u8DC3\n\u5DE6shift\u5954\u8DD1\nR\u6362\u5F39 
-    \u53F3\u952E\u7784\u51C6\u5DE6\u952E\u5F00\u67AA\nG\u6254\u624B\u96F7\nESC\u6253\u5F00/\u5173\u95ED\u83DC\u5355"
+    \u53F3\u952E\u7784\u51C6\u5DE6\u952E\u5F00\u67AA\nG\u6254\u624B\u96F7   Q\u8FD1\u6218\u653B\u51FB\nESC\u6253\u5F00/\u5173\u95ED\u83DC\u5355\nTab\u6253\u5F00/\u5173\u95ED\u80CC\u5305\n1\u4F7F\u7528\u8840\u5305 
+    B\u5207\u6362\u5C04\u51FB\u6A21\u5F0F\n"
 --- !u!222 &1519225482
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15929,7 +15930,12 @@ MonoBehaviour:
   CanvasInventory: {fileID: 0}
   MainMenu: {fileID: 0}
   HitFeedbackUI: {fileID: 0}
+  curDropData: {fileID: 0}
   Player: {fileID: 0}
+  dropBox: {fileID: 0}
+  equipHelmet: 0
+  equipGun: 0
+  taskData: {fileID: 0}
 --- !u!4 &1669223972
 Transform:
   m_ObjectHideFlags: 0
