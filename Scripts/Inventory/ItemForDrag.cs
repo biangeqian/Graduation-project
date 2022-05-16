@@ -49,6 +49,16 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
                 dragBeginList=GameManager.Instance.curDropData.list;
                 dragBeginContainer=InventoryManager.Instance.dropBoxContainer;
             }
+            else if(dragBeginModel==5)
+            {
+                dragBeginList=InventoryManager.Instance.helmetPlayer.list;
+                dragBeginContainer=InventoryManager.Instance.helmetContainer;
+            }
+            else if(dragBeginModel==6)
+            {
+                dragBeginList=InventoryManager.Instance.bigGun1Player.list;
+                dragBeginContainer=InventoryManager.Instance.bigGun1Container;
+            }
             
             //记录原始数据
             indexD=GetComponentInParent<ItemUI>().indexOfDataInBox;
@@ -129,6 +139,16 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
             {
                 dragEndList=GameManager.Instance.curDropData.list;
                 dragEndContainer=InventoryManager.Instance.dropBoxContainer;
+            }
+            else if(dragEndModel==5)
+            {
+                dragEndList=InventoryManager.Instance.helmetPlayer.list;
+                dragEndContainer=InventoryManager.Instance.helmetContainer;
+            }
+            else if(dragEndModel==6)
+            {
+                dragEndList=InventoryManager.Instance.bigGun1Player.list;
+                dragEndContainer=InventoryManager.Instance.bigGun1Container;
             }
             else
             {
@@ -266,6 +286,55 @@ public class ItemForDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDrag
     }
     private void SwapWithTarget(int index)
     {
+        //头盔
+        if(dragEndModel==5)
+        {
+            if(dragBeginList[indexD].itemData.itemtype!=ItemData_SO.itemType.helmet)
+            {
+                dragDefault();
+                return;
+            }
+            else
+            {
+                //加防御
+                GameManager.Instance.equipHelmet=true;
+                var player=GameManager.Instance.Player;
+                if(player)
+                {
+                    player.GetComponent<CharacterStats>().CurrentDefence=2;
+                }
+            }
+        }
+        //主武器
+        else if(dragEndModel==6)
+        {
+            if(dragBeginList[indexD].itemData.itemtype!=ItemData_SO.itemType.gun)
+            {
+                dragDefault();
+                return;
+            }
+            else
+            {
+                //加攻击
+                GameManager.Instance.equipGun=true;
+            }
+        }
+        if(dragBeginModel==5)
+        {
+            //减防御
+            GameManager.Instance.equipHelmet=false;
+            var player=GameManager.Instance.Player;
+            if(player)
+            {
+                player.GetComponent<CharacterStats>().CurrentDefence=0;
+            }
+        }
+        else if(dragBeginModel==6)
+        {
+            //减攻击
+            GameManager.Instance.equipGun=false;
+        }
+
         if(size==1)
         {
             //Data

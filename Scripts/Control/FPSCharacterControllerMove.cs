@@ -48,6 +48,14 @@ public class FPSCharacterControllerMove : MonoBehaviour
     {
         inventory=GameManager.Instance.CanvasInventory.gameObject;
         playerCharacterStats=GetComponent<CharacterStats>();
+        if(GameManager.Instance.equipHelmet)
+        {
+            playerCharacterStats.CurrentDefence=2;
+        }
+        else
+        {
+            playerCharacterStats.CurrentDefence=0;
+        }
         //隐藏鼠标
         Cursor.lockState = CursorLockMode.Locked;
 

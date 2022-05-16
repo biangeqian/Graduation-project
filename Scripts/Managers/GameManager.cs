@@ -24,6 +24,8 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public GameObject Player;
     public GameObject dropBox;
+    public bool equipHelmet;
+    public bool equipGun;
     public Stack<GameObject> CanvasStack=new Stack<GameObject>();
 
     void Update() 
