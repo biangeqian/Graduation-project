@@ -41,6 +41,10 @@ public class MainMenu : MonoBehaviour
         canvas_settings=GameManager.Instance.SettingUI;
         canvas_inventory=GameManager.Instance.CanvasInventory;
     }
+    private void Update() 
+    {
+        canvas_settings.GetComponent<Canvas_settings>().setAudio();
+    }
     void StartGame()
     {
         //UnityEngine.Debug.Log("开始游戏");
@@ -88,5 +92,6 @@ public class MainMenu : MonoBehaviour
     void Remake()
     {
         GameManager.Instance.CanvasInventory.GetComponent<InventoryManager>().Remake();
+        GameManager.Instance.taskData.killFashiNumber=0;
     }
 }

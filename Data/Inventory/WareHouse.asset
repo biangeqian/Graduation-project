@@ -14,8 +14,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owned: 1
   list:
+  - itemData: {fileID: 11400000, guid: 7788906348ee1544b9a60500b36fa62e, type: 2}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
   - itemData: {fileID: 0}
     currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 0}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 0}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 0}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 11400000, guid: ce2b524fab2904946b3e29d3399ec541, type: 2}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 0}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 11400000, guid: ce2b524fab2904946b3e29d3399ec541, type: 2}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 0}
+    currentStack: 0
+    currentValue: 0
+    currentUseTimes: 0
+    currentWeight: 0
+  - itemData: {fileID: 11400000, guid: ef218d6ab039f0e4983dbe682b8acbad, type: 2}
+    currentStack: 90
     currentValue: 0
     currentUseTimes: 0
     currentWeight: 0
@@ -69,52 +114,7 @@ MonoBehaviour:
     currentValue: 0
     currentUseTimes: 0
     currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
-    currentStack: 0
-    currentValue: 0
-    currentUseTimes: 0
-    currentWeight: 0
-  - itemData: {fileID: 0}
+  - itemData: {fileID: 11400000, guid: 742f00044fb2b1e4e857654b145c04fb, type: 2}
     currentStack: 0
     currentValue: 0
     currentUseTimes: 0

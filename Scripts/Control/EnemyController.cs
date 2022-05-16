@@ -229,6 +229,10 @@ public class EnemyController : MonoBehaviour
                     transform.position+Vector3.up*0.5f, 
                     transform.rotation);
                     box.GetComponent<DropBox>().dropBoxCur=Instantiate(drops);
+                    if(characterStats.attackData.name=="EvilMageAttack")
+                    {
+                        GameManager.Instance.taskData.killFashiNumber++;
+                    }
                 }
                 //死亡后延迟两秒销毁
                 Destroy(gameObject, 1f);

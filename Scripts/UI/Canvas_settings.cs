@@ -33,11 +33,7 @@ public class Canvas_settings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(audioSource)
-        {
-            audioSource.volume=slider.value;
-        }
-        volumeScore.text=(Mathf.Round(slider.value*100)).ToString();
+        
     }
     void goMenu()
     {
@@ -47,5 +43,13 @@ public class Canvas_settings : MonoBehaviour
     void quit() 
     {
         GameManager.Instance.quitGame();
+    }
+    public void setAudio()
+    {
+        if(audioSource)
+        {
+            audioSource.volume=slider.value;
+        }
+        volumeScore.text=(Mathf.Round(slider.value*100)).ToString();
     }
 }

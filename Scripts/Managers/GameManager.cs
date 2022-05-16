@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject dropBox;
     public bool equipHelmet;
     public bool equipGun;
+    public TaskData_SO taskData;
     public Stack<GameObject> CanvasStack=new Stack<GameObject>();
 
     void Update() 
